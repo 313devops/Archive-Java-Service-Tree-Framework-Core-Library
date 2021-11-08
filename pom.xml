@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>313devgrp</groupId>
     <artifactId>jstree-project</artifactId>
-    <version>21.04.04</version>
+    <version>21.11.01</version>
     <packaging>pom</packaging>
 
     <name>jstree-project</name>
@@ -100,12 +100,12 @@
 
     <profiles>
         <profile>
-            <id>operation</id>
+            <id>live</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>operation</build.profile.id>
+                <build.profile.id>live</build.profile.id>
             </properties>
         </profile>
         <profile>
