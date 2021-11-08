@@ -5,7 +5,7 @@
     <parent>
         <groupId>313devgrp</groupId>
         <artifactId>jstree-project</artifactId>
-        <version>21.11.01</version>
+        <version>21.11.07</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,6 @@
     <properties>
         <spring.maven.artifact.version>4.1.9.RELEASE</spring.maven.artifact.version>
         <egovframework.rte.version>3.6.0</egovframework.rte.version>
-        <spring.security.version>3.2.9.RELEASE</spring.security.version>
         <struts.maven.artifact.version>2.3.34</struts.maven.artifact.version>
         <org.hibernate.hibernate_version>4.3.11.Final</org.hibernate.hibernate_version>
     </properties>
@@ -64,11 +63,6 @@
         <dependency>
             <groupId>egovframework.rte</groupId>
             <artifactId>egovframework.rte.fdl.property</artifactId>
-            <version>${egovframework.rte.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>egovframework.rte</groupId>
-            <artifactId>egovframework.rte.fdl.security</artifactId>
             <version>${egovframework.rte.version}</version>
         </dependency>
         <dependency>
@@ -736,37 +730,6 @@
             <version>${spring.maven.artifact.version}</version>
         </dependency>
 
-        <!-- ******************************************* Spring Security ******************************************* -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.0.7.RELEASE</version>
-        </dependency>
-
         <!-- 보안 코드 라이브러리 추가 XSS -->
         <dependency>
             <groupId>com.navercorp.lucy</groupId>
@@ -785,12 +748,6 @@
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-config</artifactId>
-            <version>1.1.4.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-security</artifactId>
             <version>1.1.4.RELEASE</version>
         </dependency>
 
