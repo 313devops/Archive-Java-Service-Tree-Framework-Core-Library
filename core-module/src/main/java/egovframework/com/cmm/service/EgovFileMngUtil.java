@@ -1,37 +1,20 @@
 package egovframework.com.cmm.service;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import egovframework.com.cmm.EgovWebUtil;
 import egovframework.com.cmm.util.EgovResourceCloseHelper;
-import egovframework.rte.fdl.idgnr.EgovIdGnrService;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Component("EgovFileMngUtil")
 public class EgovFileMngUtil {
@@ -39,9 +22,6 @@ public class EgovFileMngUtil {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileMngUtil.class);
 	
 	public static final int BUFF_SIZE = 2048;
-
-	@Resource(name = "egovFileIdGnrService")
-	private EgovIdGnrService idgenService;
 
 	public List<FileVO> parseFileInf(Map<String, MultipartFile> files, String KeyStr, int fileKeyParam, String atchFileId, String storePath) throws Exception {
 		int fileKey = fileKeyParam;
@@ -55,11 +35,7 @@ public class EgovFileMngUtil {
 			storePathString = EgovProperties.getProperty(storePath);
 		}
 
-		if ("".equals(atchFileId) || atchFileId == null) {
-			atchFileIdString = idgenService.getNextStringId();
-		} else {
 			atchFileIdString = atchFileId;
-		}
 
 		File saveFolder = new File(EgovWebUtil.filePathBlackList(storePathString));
 

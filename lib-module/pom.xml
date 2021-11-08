@@ -5,7 +5,7 @@
     <parent>
         <groupId>313devgrp</groupId>
         <artifactId>jstree-project</artifactId>
-        <version>21.11.09</version>
+        <version>21.11.11</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -50,11 +50,6 @@
             <version>1.4.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>egovframework.rte</groupId>
-            <artifactId>egovframework.rte.fdl.idgnr</artifactId>
-            <version>${egovframework.rte.version}</version>
-        </dependency>
         <dependency>
             <groupId>egovframework.rte</groupId>
             <artifactId>egovframework.rte.ptl.mvc</artifactId>
