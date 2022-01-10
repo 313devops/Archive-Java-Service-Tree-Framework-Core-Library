@@ -28,7 +28,7 @@ MVC패턴을 구현한 다양한 프레임워크를 대상으로 ( EgovFramework
 > Mobile Part       | Android, PhoneGap
 > Search Engine Part| Lucene, Elastic Search, Kibana, Logstash, Beats
 > Management Part   | PMBOK, MicroService, CBD, PLE, Prototype, PMS, ALM
-> Virtual Image Part| Docker
+> Virtual Image Part| Docker, Docker Swarm
 > Microservice Part | Netty - Zookeeper - Finagle
 
 
