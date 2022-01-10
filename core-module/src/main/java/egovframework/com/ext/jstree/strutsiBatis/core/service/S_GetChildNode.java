@@ -46,17 +46,17 @@ public class S_GetChildNode implements I_S_GetChildNode {
 
     public String selectDBSetting(String flag) {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/getChildNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/getChildNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "byLeftRight".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "byLeftRight".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNodeByLeftRight";
-        } else if ("/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "byID".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "byLeftRight".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "byLeftRight".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getChildNodeByLeftRight";
         } else {
             logger.debug(request.getRequestURI());

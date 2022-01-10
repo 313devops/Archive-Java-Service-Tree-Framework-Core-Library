@@ -35,7 +35,7 @@ public class S_AlterNode implements I_S_AlterNode {
 
     public String selectDBSetting() {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/alterNode.action".equals(request.getRequestURI())) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/alterNode.action".equals(request.getRequestURI())) {
             returnStr = "jstreeStrutsiBatis.alterNode";
         } else {
             logger.debug(request.getRequestURI());

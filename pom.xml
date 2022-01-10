@@ -9,11 +9,11 @@
     <!-- 기본적인 pom Setting -->
     <modelVersion>4.0.0</modelVersion>
     <groupId>313devgrp</groupId>
-    <artifactId>jstree-project</artifactId>
-    <version>21.11.11</version>
+    <artifactId>java-service-tree-framework-core-library</artifactId>
+    <version>22.01.11</version>
     <packaging>pom</packaging>
 
-    <name>jstree-project</name>
+    <name>java-service-tree-framework-core-library</name>
     <description>대한민국 IT 의 표준을 정의합니다. 최초의 서비스 프레임워크를 공개합니다. by 313 DEV GRP</description>
     <url>http://www.313.co.kr</url>
     <inceptionYear>2011</inceptionYear>
@@ -125,6 +125,7 @@
             <id>StandardProject</id>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
@@ -138,6 +139,7 @@
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
             <url>http://www.313.co.kr/nexus/content/groups/public-snapshots</url>
         </repository>
@@ -151,6 +153,17 @@
                 <enabled>true</enabled>
             </releases>
             <url>https://m2proxy.atlassian.com/repository/public</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
 
@@ -159,6 +172,7 @@
             <id>StandardProject</id>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
@@ -187,8 +201,18 @@
             </releases>
             <url>https://m2proxy.atlassian.com/repository/public</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <releases>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </pluginRepository>
     </pluginRepositories>
-
 
     <distributionManagement>
         <repository>
@@ -201,7 +225,7 @@
         </snapshotRepository>
         <site>
             <id>StandardProject-Site-Public</id>
-            <url>ftp://www.313.co.kr/web/DeveloperPortal/analysis/TSF</url>
+            <url>ftp://www.313.co.kr/web/313devgrp/analysis/JSTF</url>
         </site>
     </distributionManagement>
 

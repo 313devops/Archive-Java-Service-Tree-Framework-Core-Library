@@ -42,7 +42,7 @@ public class S_GetJstreeMonitor implements I_S_GetJstreeMonitor {
 		String returnStr = "";
 		if (request
 				.getRequestURI()
-				.equals("/com/ext/jstree/strutsiBatis/core/monitor/list.action")) {
+				.equals("/auth-anon/com/ext/jstree/strutsiBatis/core/monitor/list.action")) {
 			returnStr = "jstreeMonitor.getJstreeMonitor";
 		} else {
 			logger.debug(request.getRequestURI());

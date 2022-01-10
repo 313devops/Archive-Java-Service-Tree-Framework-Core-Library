@@ -49,7 +49,7 @@ public class S_RemoveNode implements I_S_RemoveNode {
 
     public String selectDBSetting() {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/removeNode.action".equals(request.getRequestURI())) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/removeNode.action".equals(request.getRequestURI())) {
             returnStr = "jstreeStrutsiBatis.removeNode";
         } else {
             logger.debug(request.getRequestURI());

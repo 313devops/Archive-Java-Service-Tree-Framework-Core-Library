@@ -58,9 +58,9 @@ public class S_SearchNode implements I_S_SearchNode {
 
     public String selectDBSetting(String step) {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/searchNode.action".equals(request.getRequestURI()) && "step1".equals(step)) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/searchNode.action".equals(request.getRequestURI()) && "step1".equals(step)) {
             returnStr = "jstreeStrutsiBatis.searchNodeByString";
-        } else if ("/com/ext/jstree/strutsiBatis/core/searchNode.action".equals(request.getRequestURI()) && "step2".equals(step)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/searchNode.action".equals(request.getRequestURI()) && "step2".equals(step)) {
             returnStr = "jstreeStrutsiBatis.searchNodeByPosition";
         } else {
             logger.debug(request.getRequestURI());

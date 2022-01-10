@@ -4,7 +4,7 @@
 
 
 	<package name="www313cokrJstreeSolutionStrutsVersion"
-		namespace="/com/ext/jstree/strutsiBatis/core" extends="www313cokrDefaultPkg">
+		namespace="/auth-anon/com/ext/jstree/strutsiBatis/core" extends="www313cokrDefaultPkg">
 
 		<interceptors>
 			<interceptor name="timer"

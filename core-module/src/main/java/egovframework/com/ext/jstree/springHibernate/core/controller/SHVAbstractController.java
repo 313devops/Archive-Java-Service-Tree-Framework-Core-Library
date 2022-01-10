@@ -1,6 +1,8 @@
+package egovframework.com.ext.jstree.springHibernate.core.controller;
+
 /**
  * @author 이동민
- * @since 2014.07.28
+ * @since 2021.12.18
  * @version 1.0
  * @see <pre>
  *  Copyright (C) 2007 by 313 DEV GRP, Inc - All Rights Reserved
@@ -9,13 +11,13 @@
  *  Written by 313 developer group <313@313.co.kr>, December 2010
  * </pre>
  * */
-package egovframework.com.ext.jstree.springHibernate.core.controller;
 
 import com.google.common.collect.Maps;
 import egovframework.com.ext.jstree.springHibernate.core.service.JsTreeHibernateService;
 import egovframework.com.ext.jstree.springHibernate.core.util.Util_TitleChecker;
 import egovframework.com.ext.jstree.springHibernate.core.validation.group.*;
 import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateDTO;
+import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
 import egovframework.com.ext.jstree.support.mvc.GenericAbstractController;
 import egovframework.com.ext.jstree.support.util.ParameterParser;
 import org.hibernate.criterion.Order;
@@ -35,17 +37,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
-@RequestMapping(value = {"/auth-anon/com/ext/jstree/springHibernate/core"})
-public class JsTreeHibernateController extends GenericAbstractController {
+public abstract class SHVAbstractController<T extends JsTreeHibernateService, V extends JsTreeHibernateSearchDTO> extends GenericAbstractController {
 
-    @Autowired
-    @Qualifier("JsTreeHibernateService")
-    private JsTreeHibernateService jsTreeHibernateService;
+    private T jsTreeHibernateService;
+
+    public void setJsTreeHibernateService( T jsTreeHibernateService) {
+        this.jsTreeHibernateService = jsTreeHibernateService;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/getChildNode.do", method = RequestMethod.GET)
-    public ModelAndView getChildNode(JsTreeHibernateDTO jsTreeHibernateDTO, ModelMap model, HttpServletRequest request)
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView getChildNode( V jsTreeHibernateSearchDTO, HttpServletRequest request)
             throws Exception {
 
         ParameterParser parser = new ParameterParser(request);
@@ -54,8 +56,8 @@ public class JsTreeHibernateController extends GenericAbstractController {
             throw new RuntimeException();
         }
 
-        jsTreeHibernateDTO.setWhere("c_parentid", new Long(parser.get("c_id")));
-        List<JsTreeHibernateDTO> list = jsTreeHibernateService.getChildNode(jsTreeHibernateDTO);
+        jsTreeHibernateSearchDTO.setWhere("c_parentid", new Long(parser.get("c_id")));
+        List<JsTreeHibernateSearchDTO> list = jsTreeHibernateService.getChildNode(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
         modelAndView.addObject("result", list);
@@ -64,15 +66,15 @@ public class JsTreeHibernateController extends GenericAbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/getPaginatedChildNode.do", method = RequestMethod.GET)
-    public ModelAndView getPaginatedChildNode(JsTreeHibernateDTO paginatedJsTreeHibernateDTO, ModelMap model,
-                                              HttpServletRequest request) throws Exception {
+    public ModelAndView getPaginatedChildNode( V paginatedJsTreeHibernateDTO, ModelMap model,
+                                               HttpServletRequest request) throws Exception {
 
         if (paginatedJsTreeHibernateDTO.getC_id() <= 0 || paginatedJsTreeHibernateDTO.getPageIndex() <= 0
                 || paginatedJsTreeHibernateDTO.getPageUnit() <= 0 || paginatedJsTreeHibernateDTO.getPageSize() <= 0) {
             throw new RuntimeException();
         }
         paginatedJsTreeHibernateDTO.setWhere("c_parentid", paginatedJsTreeHibernateDTO.getC_id());
-        List<JsTreeHibernateDTO> resultChildNodes = jsTreeHibernateService.getPaginatedChildNode(paginatedJsTreeHibernateDTO);
+        List<JsTreeHibernateSearchDTO> resultChildNodes = jsTreeHibernateService.getPaginatedChildNode(paginatedJsTreeHibernateDTO);
         paginatedJsTreeHibernateDTO.getPaginationInfo().setTotalRecordCount(resultChildNodes.size());
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
@@ -85,7 +87,7 @@ public class JsTreeHibernateController extends GenericAbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/searchNode.do", method = RequestMethod.GET)
-    public ModelAndView searchNode(JsTreeHibernateDTO jsTreeHibernateDTO, ModelMap model, HttpServletRequest request)
+    public ModelAndView searchNode( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
             throws Exception {
 
         ParameterParser parser = new ParameterParser(request);
@@ -94,96 +96,96 @@ public class JsTreeHibernateController extends GenericAbstractController {
             throw new RuntimeException();
         }
 
-        jsTreeHibernateDTO.setWhereLike("c_title", parser.get("parser"));
+        jsTreeHibernateSearchDTO.setWhereLike("c_title", parser.get("parser"));
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateService.searchNode(jsTreeHibernateDTO));
+        modelAndView.addObject("result", jsTreeHibernateService.searchNode(jsTreeHibernateSearchDTO));
         return modelAndView;
     }
 
     @ResponseBody
     @RequestMapping(value = "/addNode.do", method = RequestMethod.POST)
-    public ModelAndView addNode(@Validated(value = AddNode.class) JsTreeHibernateDTO jsTreeHibernateDTO,
+    public ModelAndView addNode(@Validated(value = AddNode.class) V jsTreeHibernateSearchDTO,
                                 BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
 
-        jsTreeHibernateDTO.setC_title(Util_TitleChecker.StringReplace(jsTreeHibernateDTO.getC_title()));
+        jsTreeHibernateSearchDTO.setC_title(Util_TitleChecker.StringReplace(jsTreeHibernateSearchDTO.getC_title()));
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateService.addNode(jsTreeHibernateDTO));
+        modelAndView.addObject("result", jsTreeHibernateService.addNode(jsTreeHibernateSearchDTO));
         return modelAndView;
     }
 
     @ResponseBody
     @RequestMapping(value = "/removeNode.do", method = RequestMethod.POST)
-    public ModelAndView removeNode(@Validated(value = RemoveNode.class) JsTreeHibernateDTO jsTreeHibernateDTO,
+    public ModelAndView removeNode(@Validated(value = RemoveNode.class) V jsTreeHibernateSearchDTO,
                                    BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
 
-        jsTreeHibernateDTO.setStatus(jsTreeHibernateService.removeNode(jsTreeHibernateDTO));
-        setJsonDefaultSetting(jsTreeHibernateDTO);
+        jsTreeHibernateSearchDTO.setStatus(jsTreeHibernateService.removeNode(jsTreeHibernateSearchDTO));
+        setJsonDefaultSetting(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateDTO);
+        modelAndView.addObject("result", jsTreeHibernateSearchDTO);
         return modelAndView;
     }
 
-    private void setJsonDefaultSetting(JsTreeHibernateDTO jsTreeHibernateDTO) {
+    private void setJsonDefaultSetting( V jsTreeHibernateSearchDTO) {
         long defaultSettingValue = 0;
-        jsTreeHibernateDTO.setC_parentid(defaultSettingValue);
-        jsTreeHibernateDTO.setC_position(defaultSettingValue);
-        jsTreeHibernateDTO.setC_left(defaultSettingValue);
-        jsTreeHibernateDTO.setC_right(defaultSettingValue);
-        jsTreeHibernateDTO.setC_level(defaultSettingValue);
-        jsTreeHibernateDTO.setRef(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setC_parentid(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setC_position(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setC_left(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setC_right(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setC_level(defaultSettingValue);
+        jsTreeHibernateSearchDTO.setRef(defaultSettingValue);
     }
 
     @ResponseBody
     @RequestMapping(value = "/alterNode.do")
-    public ModelAndView alterNode(@Validated(value = AlterNode.class) JsTreeHibernateDTO jsTreeHibernateDTO,
+    public ModelAndView alterNode(@Validated(value = AlterNode.class) V jsTreeHibernateSearchDTO,
                                   BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException();
         }
 
-        jsTreeHibernateDTO.setC_title(Util_TitleChecker.StringReplace(jsTreeHibernateDTO.getC_title()));
+        jsTreeHibernateSearchDTO.setC_title(Util_TitleChecker.StringReplace(jsTreeHibernateSearchDTO.getC_title()));
 
-        jsTreeHibernateDTO.setStatus(jsTreeHibernateService.alterNode(jsTreeHibernateDTO));
-        setJsonDefaultSetting(jsTreeHibernateDTO);
+        jsTreeHibernateSearchDTO.setStatus(jsTreeHibernateService.alterNode(jsTreeHibernateSearchDTO));
+        setJsonDefaultSetting(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateDTO);
+        modelAndView.addObject("result", jsTreeHibernateSearchDTO);
         return modelAndView;
     }
 
     @ResponseBody
     @RequestMapping(value = "/alterNodeType.do", method = RequestMethod.POST)
-    public ModelAndView alterNodeType(@Validated(value = AlterNodeType.class) JsTreeHibernateDTO jsTreeHibernateDTO,
+    public ModelAndView alterNodeType(@Validated(value = AlterNodeType.class) V jsTreeHibernateSearchDTO,
                                       BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException();
         }
 
-        jsTreeHibernateService.alterNodeType(jsTreeHibernateDTO);
-        setJsonDefaultSetting(jsTreeHibernateDTO);
+        jsTreeHibernateService.alterNodeType(jsTreeHibernateSearchDTO);
+        setJsonDefaultSetting(jsTreeHibernateSearchDTO);
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateDTO);
+        modelAndView.addObject("result", jsTreeHibernateSearchDTO);
         return modelAndView;
     }
 
     @ResponseBody
     @RequestMapping(value = "/moveNode.do", method = RequestMethod.POST)
-    public ModelAndView moveNode(@Validated(value = MoveNode.class) JsTreeHibernateDTO jsTreeHibernateDTO,
+    public ModelAndView moveNode(@Validated(value = MoveNode.class) V jsTreeHibernateSearchDTO,
                                  BindingResult bindingResult, ModelMap model, HttpServletRequest request) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
 
-        jsTreeHibernateService.moveNode(jsTreeHibernateDTO, request);
-        setJsonDefaultSetting(jsTreeHibernateDTO);
+        jsTreeHibernateService.moveNode(jsTreeHibernateSearchDTO, request);
+        setJsonDefaultSetting(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
-        modelAndView.addObject("result", jsTreeHibernateDTO);
+        modelAndView.addObject("result", jsTreeHibernateSearchDTO);
         return modelAndView;
     }
 
@@ -199,11 +201,11 @@ public class JsTreeHibernateController extends GenericAbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/getMonitor.do", method = RequestMethod.GET)
-    public ModelAndView getMonitor(JsTreeHibernateDTO jsTreeHibernateDTO, ModelMap model, HttpServletRequest request)
+    public ModelAndView getMonitor( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
             throws Exception {
 
-        jsTreeHibernateDTO.setOrder(Order.asc("c_id"));
-        List<JsTreeHibernateDTO> list = jsTreeHibernateService.getChildNode(jsTreeHibernateDTO);
+        jsTreeHibernateSearchDTO.setOrder(Order.asc("c_id"));
+        List<JsTreeHibernateSearchDTO> list = jsTreeHibernateService.getChildNode(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
         modelAndView.addObject("result", list);

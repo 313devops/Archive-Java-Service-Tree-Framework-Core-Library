@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = { "/com/ext/jstree/springiBatis/core" })
+@RequestMapping(value = { "/auth-anon/com/ext/jstree/springiBatis/core" })
 public class CoreController extends GenericAbstractController{
 	@Resource(name = "CoreService")
 	CoreService coreService;

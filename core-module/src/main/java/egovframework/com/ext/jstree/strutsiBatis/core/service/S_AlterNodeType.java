@@ -74,7 +74,7 @@ public class S_AlterNodeType implements I_S_AlterNodeType {
 
     public String selectDBSetting() {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI())) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI())) {
             returnStr = "jstreeStrutsiBatis.alterNodeType";
         } else {
             logger.debug(request.getRequestURI());

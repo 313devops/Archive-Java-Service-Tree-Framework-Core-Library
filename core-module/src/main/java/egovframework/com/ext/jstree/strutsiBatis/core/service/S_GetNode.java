@@ -41,17 +41,17 @@ public class S_GetNode implements I_S_GetNode {
 
     public String selectDBSetting(String flag) {
         String returnStr = "";
-        if ("/com/ext/jstree/strutsiBatis/core/removeNode.action".equals(request.getRequestURI()) && "remove".equals(flag)) {
+        if ("/auth-anon/com/ext/jstree/strutsiBatis/core/removeNode.action".equals(request.getRequestURI()) && "remove".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "getNodeByRef".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/moveNode.action".equals(request.getRequestURI()) && "getNodeByRef".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNodeByRef";
-        } else if ("/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNode";
-        } else if ("/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "getNodeByRef".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/addNode.action".equals(request.getRequestURI()) && "getNodeByRef".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNodeByRef";
-        } else if ("/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
+        } else if ("/auth-anon/com/ext/jstree/strutsiBatis/core/alterNodeType.action".equals(request.getRequestURI()) && "getNode".equals(flag)) {
             returnStr = "jstreeStrutsiBatis.getNode";
         } else {
             logger.debug(request.getRequestURI());
