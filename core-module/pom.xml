@@ -7,14 +7,14 @@
     <parent>
         <groupId>313devgrp</groupId>
         <artifactId>java-service-tree-framework-core-library</artifactId>
-        <version>22.01.11</version>
+        <version>22.01.12</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>core-module</artifactId>
     <packaging>jar</packaging>
     <name>core-module</name>
-    <description>Core Project by 313 DEV GRP</description>
+    <description>Core Library Project by 313 DEV GRP</description>
 
     <dependencyManagement>
         <dependencies>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>313devgrp</groupId>
             <artifactId>lib-module</artifactId>
-            <version>22.01.11</version>
+            <version>22.01.12</version>
             <type>pom</type>
         </dependency>
         <dependency>
