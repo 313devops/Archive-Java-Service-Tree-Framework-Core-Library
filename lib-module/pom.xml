@@ -18,7 +18,7 @@
         <spring.maven.artifact.version>4.3.30.RELEASE</spring.maven.artifact.version>
         <egovframework.rte.version>3.6.0</egovframework.rte.version>
         <struts.maven.artifact.version>2.3.34</struts.maven.artifact.version>
-        <org.hibernate.hibernate_version>4.3.11.Final</org.hibernate.hibernate_version>
+        <org.hibernate.hibernate_version>5.4.24.Final</org.hibernate.hibernate_version>
     </properties>
 
     <dependencies>
