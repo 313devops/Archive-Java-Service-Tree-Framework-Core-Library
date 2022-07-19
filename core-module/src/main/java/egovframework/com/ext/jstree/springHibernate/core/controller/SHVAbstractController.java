@@ -46,6 +46,23 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     }
 
     @ResponseBody
+    @RequestMapping(value = "/getNode.do", method = RequestMethod.GET)
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView getNode( V jsTreeHibernateSearchDTO, HttpServletRequest request) throws Exception {
+
+        ParameterParser parser = new ParameterParser(request);
+
+        if (parser.getInt("c_id") <= 0) {
+            throw new RuntimeException();
+        }
+
+        V returnVO = jsTreeHibernateService.getNode(jsTreeHibernateSearchDTO);
+
+        ModelAndView modelAndView = new ModelAndView("jsonView");
+        modelAndView.addObject("result", returnVO);
+        return modelAndView;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/getChildNode.do", method = RequestMethod.GET)
     public <V extends JsTreeHibernateSearchDTO> ModelAndView getChildNode( V jsTreeHibernateSearchDTO, HttpServletRequest request)
             throws Exception {
