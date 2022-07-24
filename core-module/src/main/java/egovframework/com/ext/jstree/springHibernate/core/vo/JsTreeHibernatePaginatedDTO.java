@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 @MappedSuperclass
 public abstract class JsTreeHibernatePaginatedDTO extends JsTreeHibernateBaseDTO implements Serializable{
-	
-	private static final long serialVersionUID = 3465234289025484577L;
+
+	private static final long serialVersionUID = 1L;
 
 	/** 검색조건 */
 	@JsonIgnore

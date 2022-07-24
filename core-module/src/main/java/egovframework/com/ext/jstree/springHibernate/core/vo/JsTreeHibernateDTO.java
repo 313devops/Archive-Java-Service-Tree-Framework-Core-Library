@@ -17,7 +17,7 @@ import java.io.Serializable;
 @SequenceGenerator(name = "JsTreeSequence", sequenceName = "S_COMPREHENSIVETREE_HIBER", allocationSize = 1)
 public class JsTreeHibernateDTO extends JsTreeHibernateSearchDTO implements Serializable {
 
-	private static final long serialVersionUID = -6859122566734590165L;
+	private static final long serialVersionUID = 1L;
 
 	public JsTreeHibernateDTO() {
 		super();

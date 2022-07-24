@@ -10,7 +10,7 @@ import java.util.*;
 
 public abstract class JsTreeHibernateSearchDTO extends JsTreeHibernatePaginatedDTO implements Serializable {
 
-	private static final long serialVersionUID = 2591336265806317114L;
+	private static final long serialVersionUID = 1L;
 	@JsonIgnore
 	private List<Order> order = new ArrayList<>();
 	@JsonIgnore

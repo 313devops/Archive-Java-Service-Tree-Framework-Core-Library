@@ -288,16 +288,19 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		T alterTargetNode = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 
 		for (Field field : jsTreeHibernateDTO.getClass().getDeclaredFields()) {
+
 			field.setAccessible(true);
+
 			Object value = field.get(jsTreeHibernateDTO);
 
 			if (!ObjectUtils.isEmpty(value)) {
-				alterTargetNode.getClass().getDeclaredField(field.getName()).setAccessible(true);
-				alterTargetNode.getClass().getDeclaredField(field.getName()).set(alterTargetNode, value);
+				field.setAccessible(true);
+				field.set(alterTargetNode, value);
 			}
-		}
 
+		}
 		jsTreeHibernateDao.update(alterTargetNode);
+
 		return 1;
 
 	}
