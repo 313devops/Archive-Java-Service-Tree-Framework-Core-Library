@@ -21,6 +21,7 @@ import egovframework.com.ext.jstree.support.mvc.GenericAbstractController;
 import egovframework.com.ext.jstree.support.util.ParameterParser;
 import org.hibernate.criterion.Order;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -30,12 +31,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class SHVAbstractController<T extends JsTreeHibernateService, V extends JsTreeHibernateSearchDTO> extends GenericAbstractController {
 
     private T jsTreeHibernateService;
+    private V returnVO;
 
     public void setJsTreeHibernateService( T jsTreeHibernateService) {
         this.jsTreeHibernateService = jsTreeHibernateService;
@@ -152,6 +155,20 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
         jsTreeHibernateSearchDTO.setC_right(defaultSettingValue);
         jsTreeHibernateSearchDTO.setC_level(defaultSettingValue);
         jsTreeHibernateSearchDTO.setRef(defaultSettingValue);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateNode.do")
+    public ModelAndView updateNode(@Validated(value = UpdateNode.class) V jsTreeHibernateSearchDTO,
+                                  BindingResult bindingResult, HttpServletRequest request, ModelMap model) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new RuntimeException();
+        }
+
+        ModelAndView modelAndView = new ModelAndView("jsonView");
+        modelAndView.addObject("result", jsTreeHibernateService.updateNode(jsTreeHibernateSearchDTO));
+        return modelAndView;
     }
 
     @ResponseBody

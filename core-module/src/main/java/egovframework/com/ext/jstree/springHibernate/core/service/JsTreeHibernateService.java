@@ -10,6 +10,8 @@ public interface JsTreeHibernateService {
 	
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception;
 
+    public <T extends JsTreeHibernateSearchDTO> int updateNode(T jsTreeHibernateDTO) throws Exception;
+
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception;
 	
 	public <T extends JsTreeHibernateSearchDTO> List<T> getPaginatedChildNode(T jsTreeHibernateDTO) throws Exception;

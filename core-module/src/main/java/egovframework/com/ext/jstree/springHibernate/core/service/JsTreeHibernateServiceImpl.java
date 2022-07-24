@@ -15,10 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Service("JsTreeHibernateService")
@@ -275,6 +277,29 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			jsTreeHibernateDao.update(perPositionFixJsTreeHibernateDTO);
 		}
 		return 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	public <T extends JsTreeHibernateSearchDTO> int updateNode(T jsTreeHibernateDTO) throws Exception {
+
+		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		T alterTargetNode = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
+
+		for (Field field : jsTreeHibernateDTO.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			Object value = field.get(jsTreeHibernateDTO);
+
+			if (!ObjectUtils.isEmpty(value)) {
+				alterTargetNode.getClass().getDeclaredField(field.getName()).setAccessible(true);
+				alterTargetNode.getClass().getDeclaredField(field.getName()).set(alterTargetNode, value);
+			}
+		}
+
+		jsTreeHibernateDao.update(alterTargetNode);
+		return 1;
+
 	}
 
 	@SuppressWarnings("unchecked")
