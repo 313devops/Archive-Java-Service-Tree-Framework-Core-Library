@@ -7,8 +7,7 @@ public class PaginatedComprehensiveTree extends ComprehensiveTree{
 	/**
 	 * egovframework.com.cmm.ComDefaultVO 객체를 적용함.
 	 */
-	private static final long serialVersionUID = -6524053887601733438L;
-	
+
 	/** 검색조건 */
     private String searchCondition = "";
     

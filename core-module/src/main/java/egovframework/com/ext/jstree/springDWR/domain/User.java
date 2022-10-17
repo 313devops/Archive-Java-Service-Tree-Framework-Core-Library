@@ -7,7 +7,6 @@ import org.directwebremoting.annotations.DataTransferObject;
 @DataTransferObject
 public class User implements Serializable{
 
-	private static final long serialVersionUID = -5830203631667372978L;
 	private String name;
 	private String time;
 
