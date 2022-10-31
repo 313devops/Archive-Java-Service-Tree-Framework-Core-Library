@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.unitils.util.ReflectionUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -287,7 +288,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		T alterTargetNode = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 
-		for (Field field : jsTreeHibernateDTO.getClass().getDeclaredFields()) {
+		for (Field field : ReflectionUtils.getAllFields(jsTreeHibernateDTO.getClass())) {
 
 			field.setAccessible(true);
 
