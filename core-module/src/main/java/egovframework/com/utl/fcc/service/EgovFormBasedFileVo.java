@@ -14,6 +14,13 @@ public class EgovFormBasedFileVo implements Serializable {
     private String physicalName = "";
     /** 파일 사이즈 */
     private long size = 0L;
+
+    /** jQuery FileUpload 플러그인을 위한 추가 필드 **/
+    private String name = "";
+    private String url = "";
+    private String thumbnailUrl = "";
+    private String deleteUrl = "";
+    private String deleteType = "DELETE";
     
     public String getFileName() {
         return fileName;
@@ -44,5 +51,41 @@ public class EgovFormBasedFileVo implements Serializable {
     }
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getName() {
+        return fileName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getDeleteUrl() {
+        return deleteUrl;
+    }
+
+    public void setDeleteUrl(String deleteUrl) {
+        this.deleteUrl = deleteUrl;
+    }
+
+    public String getDeleteType() {
+        return deleteType;
+    }
+
+    public void setDeleteType(String deleteType) {
+        this.deleteType = deleteType;
     }
 }
