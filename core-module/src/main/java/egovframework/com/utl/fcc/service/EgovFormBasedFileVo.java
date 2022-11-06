@@ -20,7 +20,7 @@ public class EgovFormBasedFileVo implements Serializable {
     private String url = "";
     private String thumbnailUrl = "";
     private String delete_url = "";
-    private String delete_type = "DELETE";
+    private String delete_type = "POST";
     
     public String getFileName() {
         return fileName;
