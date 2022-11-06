@@ -19,8 +19,8 @@ public class EgovFormBasedFileVo implements Serializable {
     private String name = "";
     private String url = "";
     private String thumbnailUrl = "";
-    private String deleteUrl = "";
-    private String deleteType = "DELETE";
+    private String delete_url = "";
+    private String delete_type = "DELETE";
     
     public String getFileName() {
         return fileName;
@@ -73,19 +73,19 @@ public class EgovFormBasedFileVo implements Serializable {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public String getDeleteUrl() {
-        return deleteUrl;
+    public String getDelete_url() {
+        return delete_url;
     }
 
-    public void setDeleteUrl(String deleteUrl) {
-        this.deleteUrl = deleteUrl;
+    public void setDelete_url(String delete_url) {
+        this.delete_url = delete_url;
     }
 
-    public String getDeleteType() {
-        return deleteType;
+    public String getDelete_type() {
+        return delete_type;
     }
 
-    public void setDeleteType(String deleteType) {
-        this.deleteType = deleteType;
+    public void setDelete_type(String delete_type) {
+        this.delete_type = delete_type;
     }
 }
