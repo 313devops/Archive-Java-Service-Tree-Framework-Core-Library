@@ -47,8 +47,7 @@ public class EgovFormBasedFileUtil {
 	}
 
 	protected static String convert(String filename) throws Exception {
-		//return java.net.URLEncoder.encode(filename, "utf-8");
-		return filename;
+		return java.net.URLEncoder.encode(filename, "utf-8");
 	}
 
 	public static long saveFile(InputStream is, File file) throws IOException {
