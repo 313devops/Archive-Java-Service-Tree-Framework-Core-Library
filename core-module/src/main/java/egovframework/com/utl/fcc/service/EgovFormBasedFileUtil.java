@@ -18,6 +18,7 @@ import java.util.Locale;
 import egovframework.com.cmm.EgovWebUtil;
 import egovframework.com.cmm.util.EgovResourceCloseHelper;
 
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class EgovFormBasedFileUtil {
 	/** Buffer size */
-	public static final int BUFFER_SIZE = 8192;
+	public static final int BUFFER_SIZE = 20480;
 
 	public static final String SEPERATOR = File.separator;
 
@@ -47,7 +48,8 @@ public class EgovFormBasedFileUtil {
 	}
 
 	protected static String convert(String filename) throws Exception {
-		return java.net.URLEncoder.encode(filename, "utf-8");
+		//return java.net.URLEncoder.encode(filename, "utf-8");
+		return MimeUtility.encodeText( filename, "utf-8", "B" );
 	}
 
 	public static long saveFile(InputStream is, File file) throws IOException {
@@ -140,42 +142,8 @@ public class EgovFormBasedFileUtil {
 	}
 
 	public static void downloadFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String original) throws Exception {
-		String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR + physicalName;
-
-		File file = new File(EgovWebUtil.filePathBlackList(downFileName));
-
-		if (!file.exists()) {
-			throw new FileNotFoundException(downFileName);
-		}
-
-		if (!file.isFile()) {
-			throw new FileNotFoundException(downFileName);
-		}
-
-		byte[] b = new byte[BUFFER_SIZE];
-
-		original = original.replaceAll("\r", "").replaceAll("\n", "");
-		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + convert(original) + "\";");
-		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Pragma", "no-cache");
-		response.setHeader("Expires", "0");
-
-		BufferedInputStream fin = null;
-		BufferedOutputStream outs = null;
-
-		try {
-			fin = new BufferedInputStream(new FileInputStream(file));
-			outs = new BufferedOutputStream(response.getOutputStream());
-
-			int read = 0;
-
-			while ((read = fin.read(b)) != -1) {
-				outs.write(b, 0, read);
-			}
-		} finally {
-			EgovResourceCloseHelper.close(outs, fin);
-		}
+		String contentType = "application/octet-stream";
+		downloadFile(response, where, serverSubPath, physicalName, contentType ,original);
 	}
 
 	public static void downloadFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String contentType ,String original) throws Exception {
