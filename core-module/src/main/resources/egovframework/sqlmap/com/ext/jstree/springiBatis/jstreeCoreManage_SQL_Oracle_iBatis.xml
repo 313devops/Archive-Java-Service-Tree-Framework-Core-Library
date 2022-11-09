@@ -38,7 +38,19 @@
         ORDER BY A.C_POSITION ASC
     </sql>
 
-<statement id="ddlExecute" parameterClass="ComprehensiveTree">CREATE TABLE AAA( C_ID NUMBER NOT NULL, C_PARENTID NUMBER NOT NULL, C_POSITION NUMBER NOT NULL, C_LEFT NUMBER NOT NULL,C_RIGHT NUMBER  NOT NULL, C_LEVEL NUMBER NOT NULL, C_TITLE VARCHAR2(4000 BYTE), C_TYPE VARCHAR2(4000 BYTE), CONSTRAINT AAA_PK PRIMARY KEY (C_ID))</statement >
+    <statement id="ddlExecute" parameterClass="ComprehensiveTree">
+        CREATE TABLE OPERATION_DB.AAA
+        (
+          C_ID        NUMBER                            NOT NULL,
+          C_PARENTID  NUMBER                            NOT NULL,
+          C_POSITION  NUMBER                            NOT NULL,
+          C_LEFT      NUMBER                            NOT NULL,
+          C_RIGHT     NUMBER                            NOT NULL,
+          C_LEVEL     NUMBER                            NOT NULL,
+          C_TITLE     VARCHAR2(4000 BYTE),
+          C_TYPE      VARCHAR2(4000 BYTE)
+        )
+    </statement >
 
     <update id="dmlExecute" parameterClass="ComprehensiveTree">
         /* dmlExcute */
