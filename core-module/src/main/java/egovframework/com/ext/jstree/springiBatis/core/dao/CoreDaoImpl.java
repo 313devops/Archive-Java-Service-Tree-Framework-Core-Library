@@ -15,10 +15,10 @@ import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 
 	@Override
-	public <T extends ComprehensiveTree> int ddlExecute(T comprehensiveTree) throws Exception {
+	public void ddlExecute(ComprehensiveTree comprehensiveTree) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("tableid", comprehensiveTree.getC_title());
-		return (int) getSqlMapClientTemplate().queryForObject(
+		getSqlMapClientTemplate().queryForObject(
 				comprehensiveTree.getSqlMapSelector() + ".ddlExecute", map);
 	}
 

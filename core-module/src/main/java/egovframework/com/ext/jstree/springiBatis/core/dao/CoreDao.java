@@ -6,7 +6,7 @@ import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 
 public interface CoreDao {
 
-	public <T extends ComprehensiveTree> int ddlExecute(T comprehensiveTree) throws Exception;
+	public void ddlExecute(ComprehensiveTree comprehensiveTree) throws Exception;
 	public <T extends ComprehensiveTree> int dmlExecute(T comprehensiveTree) throws Exception;
 
 	public <T extends ComprehensiveTree> List<T> getChildNode(T comprehensiveTree) throws Exception;

@@ -40,9 +40,9 @@ public class CoreController extends GenericAbstractController{
 									 HttpServletRequest request) throws Exception {
 
 		logger.info("CoreController :: ddlExecute :: tableName = " + comprehensiveTree.getC_title());
-
+		coreService.ddlExecuteWithJSTF(comprehensiveTree);
 		ModelAndView modelAndView =  new ModelAndView("jsonView");
-		modelAndView.addObject("result", coreService.ddlExecuteWithJSTF(comprehensiveTree));
+		modelAndView.addObject("result", "good");
 		return modelAndView;
 	}
 	

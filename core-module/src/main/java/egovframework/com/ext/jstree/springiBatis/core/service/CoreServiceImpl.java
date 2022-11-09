@@ -31,8 +31,8 @@ public class CoreServiceImpl implements CoreService {
 
 	@Override
 	@Transactional(readOnly = false, rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
-	public <T extends ComprehensiveTree> int ddlExecuteWithJSTF(T comprehensiveTree) throws Exception {
-		return coreDao.ddlExecute(comprehensiveTree);
+	public void ddlExecuteWithJSTF(ComprehensiveTree comprehensiveTree) throws Exception {
+		coreDao.ddlExecute(comprehensiveTree);
 	}
 
 	@Override
