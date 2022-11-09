@@ -54,13 +54,16 @@
         */);
     </statement >
 
-    <update id="dmlExecute" parameterClass="ComprehensiveTree">
-        /* dmlExcute */
-        UPDATE T_COMPREHENSIVETREE_SPRING
-        SET C_TYPE = #c_type#
-        WHERE C_ID =
-        #c_id#
-    </update>
+    <statement id="dmlExecute" parameterClass="ComprehensiveTree">
+        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
+        Values (1, 0, 0, 1, 8, 0, 'Root Node', 'root');
+        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
+        Values (2, 1, 0, 2, 7, 1, 'First Child', 'drive');
+        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
+        Values (3, 2, 0, 3, 4, 2, 'Leaf Node', 'default');
+        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
+        Values (4, 2, 1, 5, 6, 2, 'Branch Node', 'folder');
+    </statement>
 
     <select id="getChildNode" parameterClass="ComprehensiveTree"
         resultClass="ComprehensiveTree">
