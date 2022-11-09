@@ -39,7 +39,7 @@
     </sql>
 
     <statement id="ddlExecute" parameterClass="ComprehensiveTree">
-        CREATE TABLE OPERATION_DB.AAA
+        CREATE TABLE AAA
         (
           C_ID        NUMBER                            NOT NULL,
           C_PARENTID  NUMBER                            NOT NULL,
