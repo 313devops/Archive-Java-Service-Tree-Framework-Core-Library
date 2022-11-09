@@ -12,8 +12,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 public class SessionUtil {
     /**
      * attribute 값을 가져 오기 위한 method
-     *
-     * @return Object attribute obj
      */
     public static Object getAttribute(String name) throws Exception {
         return (Object)RequestContextHolder.getRequestAttributes().getAttribute(name, RequestAttributes.SCOPE_SESSION);
@@ -21,8 +19,6 @@ public class SessionUtil {
 
     /**
      * attribute 설정 method
-     *
-     * @return void
      */
     public static void setAttribute(String name, Object object) throws Exception {
         RequestContextHolder.getRequestAttributes().setAttribute(name, object, RequestAttributes.SCOPE_SESSION);
@@ -30,8 +26,6 @@ public class SessionUtil {
 
     /**
      * 설정한 attribute 삭제
-     *
-     * @return void
      */
     public static void removeAttribute(String name) throws Exception {
         RequestContextHolder.getRequestAttributes().removeAttribute(name, RequestAttributes.SCOPE_SESSION);
@@ -39,8 +33,6 @@ public class SessionUtil {
 
     /**
      * session id
-     *
-     * @return String SessionId 값
      */
     public static String getSessionId() throws Exception  {
         return RequestContextHolder.getRequestAttributes().getSessionId();
