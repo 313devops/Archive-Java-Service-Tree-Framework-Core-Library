@@ -18,8 +18,8 @@ public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 	public void ddlExecute(ComprehensiveTree comprehensiveTree) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("tableid", comprehensiveTree.getC_title());
-		getSqlMapClientTemplate().queryForObject(
-				comprehensiveTree.getSqlMapSelector() + ".ddlExecute", map);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute", map);
+
 	}
 
 	@Override
