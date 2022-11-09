@@ -48,7 +48,19 @@
         C_LEVEL NUMBER NOT NULL,
         C_TITLE VARCHAR2(4000 BYTE),
         C_TYPE VARCHAR2(4000 BYTE),
-        CONSTRAINT $c_title$_PK PRIMARY KEY (C_ID))
+        CONSTRAINT $c_title$_PK PRIMARY KEY (C_ID)
+        /*
+        * CONSTRAINT T_ARMS_REQADD_FK1 FOREIGN KEY (OTHER_ID) REFERENCES OTHER T_ARMS_REQADD(C_ID) ON DELETE CASCADE
+        */);
+        COMMENT ON TABLE $c_title$ IS '기본 트리 스키마';
+        COMMENT ON COLUMN $c_title$.C_ID IS '노드 아이디';
+        COMMENT ON COLUMN $c_title$.C_PARENTID IS '부모 노드 아이디';
+        COMMENT ON COLUMN $c_title$.C_POSITION IS '노드 포지션';
+        COMMENT ON COLUMN $c_title$.C_LEFT IS '노드 좌측 끝 포인트';
+        COMMENT ON COLUMN $c_title$.C_RIGHT IS '노드 우측 끝 포인트';
+        COMMENT ON COLUMN $c_title$.C_LEVEL IS '노드 DEPTH ';
+        COMMENT ON COLUMN $c_title$.C_TITLE IS '노드 명';
+        COMMENT ON COLUMN $c_title$.C_TYPE IS '노드 타입';
     </statement >
 
     <update id="dmlExecute" parameterClass="ComprehensiveTree">
