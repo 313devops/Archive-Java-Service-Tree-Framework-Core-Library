@@ -15,14 +15,14 @@ public class RouteTableInterceptor extends EmptyInterceptor {
         String prepedStatement = super.onPrepareStatement(sql);
         try {
             if (null == SessionUtil.getAttribute("replaceTableName")) {
-                System.out.println("Normal JSTF Framework Excute");
+                logger.info("Normal JSTF Framework Excute");
             } else {
                 String replaceTableName = (String) SessionUtil.getAttribute("replaceTableName");
                 logger.info("CustomInterceptor :: prepedStatement - before =>" + prepedStatement);
-                System.out.println("CustomInterceptor :: replaceTableName =>" + replaceTableName);
+                logger.info("CustomInterceptor :: replaceTableName =>" + replaceTableName);
                 if (StringUtils.isNotEmpty(replaceTableName)) {
-                    prepedStatement = prepedStatement.replaceAll("from T_ARMS_REQ", "from " + replaceTableName);
-                    System.out.println("CustomInterceptor :: prepedStatement - after =>" + prepedStatement);
+                    prepedStatement = prepedStatement.replaceAll("T_ARMS_REQ", replaceTableName);
+                    logger.info("CustomInterceptor :: prepedStatement - after =>" + prepedStatement);
                 }
                 return prepedStatement;
 
