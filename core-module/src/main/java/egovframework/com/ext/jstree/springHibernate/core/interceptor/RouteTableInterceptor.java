@@ -21,7 +21,7 @@ public class RouteTableInterceptor extends EmptyInterceptor {
                 logger.info("CustomInterceptor :: prepedStatement - before =>" + prepedStatement);
                 logger.info("CustomInterceptor :: replaceTableName =>" + replaceTableName);
                 if (StringUtils.isNotEmpty(replaceTableName)) {
-                    prepedStatement = prepedStatement.replaceAll("T_ARMS_REQ", replaceTableName);
+                    prepedStatement = prepedStatement.replaceAll("T_ARMS_REQADD", replaceTableName);
                     logger.info("CustomInterceptor :: prepedStatement - after =>" + prepedStatement);
                 }
                 return prepedStatement;
