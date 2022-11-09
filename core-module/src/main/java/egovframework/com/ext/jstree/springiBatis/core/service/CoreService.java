@@ -8,7 +8,7 @@ import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 
 public interface CoreService {
 
-	public void ddlExecuteWithJSTF(ComprehensiveTree comprehensiveTree) throws Exception;
+	public <T extends ComprehensiveTree> void ddlExecuteWithJSTF(T comprehensiveTree) throws Exception;
 
 	public <T extends ComprehensiveTree> int dmlExecuteWithJSTF(T comprehensiveTree) throws Exception;
 
