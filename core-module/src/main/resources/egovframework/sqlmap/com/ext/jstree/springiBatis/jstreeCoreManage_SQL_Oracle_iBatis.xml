@@ -39,7 +39,6 @@
     </sql>
 
     <update id="ddlExecute" parameterClass="ComprehensiveTree">
-        /* ddlExcute */
         CREATE TABLE #c_title#
         (
          C_ID        NUMBER                            NOT NULL,
@@ -51,10 +50,7 @@
          C_TITLE     VARCHAR2(4000 BYTE),
          C_TYPE      VARCHAR2(4000 BYTE),
          CONSTRAINT  #c_title#_PK PRIMARY KEY (C_ID)
-         /*
-           * CONSTRAINT  T_ARMS_REQADD_FK1 FOREIGN KEY (OTHER_ID) REFERENCES OTHER T_ARMS_REQADD(C_ID) ON DELETE CASCADE
-           */
-        );
+        )
     </update>
 
     <update id="dmlExecute" parameterClass="ComprehensiveTree">
