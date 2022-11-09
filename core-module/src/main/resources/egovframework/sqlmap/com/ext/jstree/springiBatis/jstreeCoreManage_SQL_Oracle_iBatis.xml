@@ -38,8 +38,8 @@
         ORDER BY A.C_POSITION ASC
     </sql>
 
-    <statement id="ddlExecute" parameterClass="map">
-        CREATE TABLE $tableid$
+    <statement id="ddlExecute" parameterClass="ComprehensiveTree">
+        CREATE TABLE $c_title$
         (
          C_ID        NUMBER                            NOT NULL,
          C_PARENTID  NUMBER                            NOT NULL,
@@ -49,7 +49,7 @@
          C_LEVEL     NUMBER                            NOT NULL,
          C_TITLE     VARCHAR2(4000 BYTE),
          C_TYPE      VARCHAR2(4000 BYTE),
-         CONSTRAINT  $tableid$_PK PRIMARY KEY (C_ID)
+         CONSTRAINT  $c_title$_PK PRIMARY KEY (C_ID)
         );
     </statement >
 
