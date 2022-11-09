@@ -8,6 +8,8 @@ import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 import egovframework.com.ext.jstree.springiBatis.core.vo.PaginatedComprehensiveTree;
 import egovframework.com.ext.jstree.support.mvc.GenericAbstractController;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -26,8 +28,23 @@ import java.util.List;
 @Controller
 @RequestMapping(value = { "/auth-anon/com/ext/jstree/springiBatis/core" })
 public class CoreController extends GenericAbstractController{
+
 	@Resource(name = "CoreService")
 	CoreService coreService;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@ResponseBody
+	@RequestMapping(value="/ddlExecute.do", method=RequestMethod.GET)
+	public ModelAndView ddlExecute(ComprehensiveTree comprehensiveTree, ModelMap model,
+									 HttpServletRequest request) throws Exception {
+
+		logger.info("CoreController :: ddlExecute :: tableName = " + comprehensiveTree.getC_title());
+
+		ModelAndView modelAndView =  new ModelAndView("jsonView");
+		modelAndView.addObject("result", coreService.ddlExecuteWithJSTF(comprehensiveTree));
+		return modelAndView;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="/getChildNode.do", method=RequestMethod.GET)
