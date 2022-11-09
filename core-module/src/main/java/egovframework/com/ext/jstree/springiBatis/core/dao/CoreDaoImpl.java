@@ -1,6 +1,8 @@
 package egovframework.com.ext.jstree.springiBatis.core.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,10 @@ public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 
 	@Override
 	public <T extends ComprehensiveTree> int ddlExecute(T comprehensiveTree) throws Exception {
-		return (Integer)update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute", comprehensiveTree);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("tableid", comprehensiveTree.getC_title());
+		return (int) getSqlMapClientTemplate().queryForObject(
+				comprehensiveTree.getSqlMapSelector() + ".ddlExecute", map);
 	}
 
 	@Override
