@@ -14,13 +14,11 @@ import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 @Qualifier("CoreDao")
 public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 
-	@Override
 	public <T extends ComprehensiveTree> void ddlExecute(T comprehensiveTree) throws Exception {
 		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute", comprehensiveTree);
 
 	}
 
-	@Override
 	public <T extends ComprehensiveTree> int dmlExecute(T comprehensiveTree) throws Exception {
 		return (Integer)update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute", comprehensiveTree);
 	}
