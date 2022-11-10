@@ -51,18 +51,12 @@
         CONSTRAINT $c_title$_PK PRIMARY KEY (C_ID)
         /*
         * CONSTRAINT T_ARMS_REQADD_FK1 FOREIGN KEY (OTHER_ID) REFERENCES OTHER T_ARMS_REQADD(C_ID) ON DELETE CASCADE
-        */);
+        */)
     </statement >
 
     <statement id="dmlExecute" parameterClass="ComprehensiveTree">
         Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
-        Values (1, 0, 0, 1, 8, 0, 'Root Node', 'root');
-        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
-        Values (2, 1, 0, 2, 7, 1, 'First Child', 'drive');
-        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
-        Values (3, 2, 0, 3, 4, 2, 'Leaf Node', 'default');
-        Insert into $c_title$ (C_ID, C_PARENTID, C_POSITION, C_LEFT, C_RIGHT, C_LEVEL, C_TITLE, C_TYPE)
-        Values (4, 2, 1, 5, 6, 2, 'Branch Node', 'folder');
+        Values (1, 0, 0, 1, 8, 0, 'Root Node', 'root')
     </statement>
 
     <select id="getChildNode" parameterClass="ComprehensiveTree"
