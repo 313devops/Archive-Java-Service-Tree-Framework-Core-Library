@@ -29,17 +29,6 @@ public class CoreServiceImpl implements CoreService {
 	@Resource(name = "CoreDao")
 	private CoreDao coreDao;
 
-	@Override
-	public <T extends ComprehensiveTree> void ddlExecuteWithJSTF(T comprehensiveTree) throws Exception {
-		coreDao.ddlExecute(comprehensiveTree);
-	}
-
-	@Override
-	@Transactional(readOnly = false, rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
-	public <T extends ComprehensiveTree> void dmlExecuteWithJSTF(T comprehensiveTree) throws Exception {
-		coreDao.dmlExecute(comprehensiveTree);
-	}
-
 	public <T extends ComprehensiveTree> T getNode(T comprehensiveTree) throws Exception {
 		T getNode = ((T) coreDao.getNode(comprehensiveTree));
 		return getNode;

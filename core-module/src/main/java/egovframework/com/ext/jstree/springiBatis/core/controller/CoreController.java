@@ -35,30 +35,6 @@ public class CoreController extends GenericAbstractController{
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@ResponseBody
-	@RequestMapping(value="/ddlExecute.do", method=RequestMethod.GET)
-	public ModelAndView ddlExecute(ComprehensiveTree comprehensiveTree, ModelMap model,
-									 HttpServletRequest request) throws Exception {
-
-		logger.info("CoreController :: ddlExecute :: tableName = " + comprehensiveTree.getC_title());
-		coreService.ddlExecuteWithJSTF(comprehensiveTree);
-		ModelAndView modelAndView =  new ModelAndView("jsonView");
-		modelAndView.addObject("result", "good");
-		return modelAndView;
-	}
-
-    @ResponseBody
-    @RequestMapping(value="/dmlExecute.do", method=RequestMethod.GET)
-    public ModelAndView dmlExecute(ComprehensiveTree comprehensiveTree, ModelMap model,
-                                   HttpServletRequest request) throws Exception {
-
-        logger.info("CoreController :: dmlExecute :: tableName = " + comprehensiveTree.getC_title());
-        coreService.dmlExecuteWithJSTF(comprehensiveTree);
-        ModelAndView modelAndView =  new ModelAndView("jsonView");
-        modelAndView.addObject("result", "good");
-        return modelAndView;
-    }
-	
-	@ResponseBody
 	@RequestMapping(value="/getChildNode.do", method=RequestMethod.GET)
 	public ModelAndView getChildNode(ComprehensiveTree comprehensiveTree, ModelMap model,
 			HttpServletRequest request) throws Exception {
