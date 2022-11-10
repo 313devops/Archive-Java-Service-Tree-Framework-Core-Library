@@ -19,8 +19,8 @@ public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 
 	}
 
-	public <T extends ComprehensiveTree> int dmlExecute(T comprehensiveTree) throws Exception {
-		return (Integer)update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute", comprehensiveTree);
+	public <T extends ComprehensiveTree> void dmlExecute(T comprehensiveTree) throws Exception {
+		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute", comprehensiveTree);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -45,6 +45,18 @@ public class CoreController extends GenericAbstractController{
 		modelAndView.addObject("result", "good");
 		return modelAndView;
 	}
+
+    @ResponseBody
+    @RequestMapping(value="/dmlExecute.do", method=RequestMethod.GET)
+    public ModelAndView dmlExecute(ComprehensiveTree comprehensiveTree, ModelMap model,
+                                   HttpServletRequest request) throws Exception {
+
+        logger.info("CoreController :: dmlExecute :: tableName = " + comprehensiveTree.getC_title());
+        coreService.dmlExecuteWithJSTF(comprehensiveTree);
+        ModelAndView modelAndView =  new ModelAndView("jsonView");
+        modelAndView.addObject("result", "good");
+        return modelAndView;
+    }
 	
 	@ResponseBody
 	@RequestMapping(value="/getChildNode.do", method=RequestMethod.GET)
