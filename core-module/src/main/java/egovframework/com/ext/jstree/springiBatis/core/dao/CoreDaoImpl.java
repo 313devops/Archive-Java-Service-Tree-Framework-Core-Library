@@ -16,11 +16,23 @@ public class CoreDaoImpl extends EgovComiBatisAbstractDAO implements CoreDao{
 
 	public <T extends ComprehensiveTree> void ddlExecute(T comprehensiveTree) throws Exception {
 		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_1", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_2", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_3", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_4", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_5", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_6", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_7", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_8", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_9", comprehensiveTree);
 
 	}
 
 	public <T extends ComprehensiveTree> void dmlExecute(T comprehensiveTree) throws Exception {
-		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_1", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_2", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_3", comprehensiveTree);
+		update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_4", comprehensiveTree);
 	}
 
 	@SuppressWarnings("unchecked")
