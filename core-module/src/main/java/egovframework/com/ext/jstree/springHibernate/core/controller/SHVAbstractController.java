@@ -82,7 +82,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/getPaginatedChildNode.do", method = RequestMethod.GET)
-    public ModelAndView getPaginatedChildNode( V paginatedJsTreeHibernateDTO, ModelMap model,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView getPaginatedChildNode( V paginatedJsTreeHibernateDTO, ModelMap model,
                                                HttpServletRequest request) throws Exception {
 
         if (paginatedJsTreeHibernateDTO.getC_id() <= 0 || paginatedJsTreeHibernateDTO.getPageIndex() <= 0
@@ -103,7 +103,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/searchNode.do", method = RequestMethod.GET)
-    public ModelAndView searchNode( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView searchNode( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
             throws Exception {
 
         ParameterParser parser = new ParameterParser(request);
@@ -120,7 +120,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/addNode.do", method = RequestMethod.POST)
-    public ModelAndView addNode(@Validated(value = AddNode.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView addNode(@Validated(value = AddNode.class) V jsTreeHibernateSearchDTO,
                                 BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
@@ -134,7 +134,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/removeNode.do", method = RequestMethod.POST)
-    public ModelAndView removeNode(@Validated(value = RemoveNode.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView removeNode(@Validated(value = RemoveNode.class) V jsTreeHibernateSearchDTO,
                                    BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
@@ -147,7 +147,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
         return modelAndView;
     }
 
-    private void setJsonDefaultSetting( V jsTreeHibernateSearchDTO) {
+    private <V extends JsTreeHibernateSearchDTO> void setJsonDefaultSetting( V jsTreeHibernateSearchDTO) {
         long defaultSettingValue = 0;
         jsTreeHibernateSearchDTO.setC_parentid(defaultSettingValue);
         jsTreeHibernateSearchDTO.setC_position(defaultSettingValue);
@@ -159,7 +159,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/updateNode.do")
-    public ModelAndView updateNode(@Validated(value = UpdateNode.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView updateNode(@Validated(value = UpdateNode.class) V jsTreeHibernateSearchDTO,
                                   BindingResult bindingResult, HttpServletRequest request, ModelMap model) throws Exception {
 
         if (bindingResult.hasErrors()) {
@@ -173,7 +173,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/alterNode.do")
-    public ModelAndView alterNode(@Validated(value = AlterNode.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView alterNode(@Validated(value = AlterNode.class) V jsTreeHibernateSearchDTO,
                                   BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException();
@@ -191,7 +191,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/alterNodeType.do", method = RequestMethod.POST)
-    public ModelAndView alterNodeType(@Validated(value = AlterNodeType.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView alterNodeType(@Validated(value = AlterNodeType.class) V jsTreeHibernateSearchDTO,
                                       BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException();
@@ -206,7 +206,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/moveNode.do", method = RequestMethod.POST)
-    public ModelAndView moveNode(@Validated(value = MoveNode.class) V jsTreeHibernateSearchDTO,
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView moveNode(@Validated(value = MoveNode.class) V jsTreeHibernateSearchDTO,
                                  BindingResult bindingResult, ModelMap model, HttpServletRequest request) throws Exception {
         if (bindingResult.hasErrors())
             throw new RuntimeException();
@@ -231,7 +231,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
 
     @ResponseBody
     @RequestMapping(value = "/getMonitor.do", method = RequestMethod.GET)
-    public ModelAndView getMonitor( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
+    public <V extends JsTreeHibernateSearchDTO> ModelAndView getMonitor( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
             throws Exception {
 
         jsTreeHibernateSearchDTO.setOrder(Order.asc("c_id"));
