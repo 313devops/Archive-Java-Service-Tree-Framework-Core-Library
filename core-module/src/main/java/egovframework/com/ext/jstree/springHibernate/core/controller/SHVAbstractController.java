@@ -147,7 +147,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
         return modelAndView;
     }
 
-    private void setJsonDefaultSetting( V jsTreeHibernateSearchDTO) {
+    public void setJsonDefaultSetting( V jsTreeHibernateSearchDTO) {
         long defaultSettingValue = 0;
         jsTreeHibernateSearchDTO.setC_parentid(defaultSettingValue);
         jsTreeHibernateSearchDTO.setC_position(defaultSettingValue);
