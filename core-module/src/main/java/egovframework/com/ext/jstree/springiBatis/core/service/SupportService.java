@@ -12,7 +12,5 @@ public interface SupportService extends CoreService {
 
     public <T extends ComprehensiveTree> void setDefaultLog_DDL_Table(T comprehensiveTree) throws Exception;
 
-    public <T extends ComprehensiveTree> void setDefaultLog_DDL_Trigger(T comprehensiveTree) throws Exception;
-
     public <T extends ComprehensiveTree> int isExist_Default_DB(T comprehensiveTree) throws Exception;
 }

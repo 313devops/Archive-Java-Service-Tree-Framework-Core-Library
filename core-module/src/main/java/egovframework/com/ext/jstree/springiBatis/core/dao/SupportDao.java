@@ -12,8 +12,6 @@ public interface SupportDao {
 
     public <T extends ComprehensiveTree> void ddlLogExecute(T comprehensiveTree) throws Exception;
 
-    public <T extends ComprehensiveTree> void ddlLogTriggerExecute(T comprehensiveTree) throws Exception;
-
     public <T extends ComprehensiveTree> int isExistTable(T comprehensiveTree) throws Exception;
 
 }

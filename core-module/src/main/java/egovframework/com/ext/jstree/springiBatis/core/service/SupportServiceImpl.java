@@ -44,12 +44,6 @@ public class SupportServiceImpl extends CoreServiceImpl implements SupportServic
 
     @Override
     @Transactional(readOnly = false, rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
-    public <T extends ComprehensiveTree> void setDefaultLog_DDL_Trigger(T comprehensiveTree) throws Exception {
-        supportDao.ddlLogTriggerExecute(comprehensiveTree);
-    }
-
-    @Override
-    @Transactional(readOnly = false, rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
     public <T extends ComprehensiveTree> int isExist_Default_DB(T comprehensiveTree) throws Exception {
         return supportDao.isExistTable(comprehensiveTree);
     }

@@ -11,16 +11,16 @@ public class SupportDaoImpl extends EgovComiBatisAbstractDAO implements SupportD
 
     @Override
     public <T extends ComprehensiveTree> void ddlExecute(T comprehensiveTree) throws Exception {
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_1", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_2", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_3", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_4", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_5", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_6", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_7", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_8", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlSqlExecute_comment_9", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_1", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_2", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_3", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_4", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_5", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_6", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_7", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_8", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlExecute_comment_9", comprehensiveTree);
     }
 
     @Override
@@ -30,29 +30,24 @@ public class SupportDaoImpl extends EgovComiBatisAbstractDAO implements SupportD
 
     @Override
     public <T extends ComprehensiveTree> void dmlExecute(T comprehensiveTree) throws Exception {
-        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlSqlExecute_1", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlSqlExecute_2", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlSqlExecute_3", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlSqlExecute_4", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_1", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_2", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_3", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "dmlExecute_4", comprehensiveTree);
     }
 
     @Override
     public <T extends ComprehensiveTree> void ddlLogExecute(T comprehensiveTree) throws Exception {
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_1", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_2", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_3", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_4", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_5", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_6", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_7", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_8", comprehensiveTree);
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogSqlExecute_comment_9", comprehensiveTree);
-    }
-
-    @Override
-    public <T extends ComprehensiveTree> void ddlLogTriggerExecute(T comprehensiveTree) throws Exception {
-        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlTriggerLogSqlExecute", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_1", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_2", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_3", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_4", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_5", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_6", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_7", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_8", comprehensiveTree);
+        update(comprehensiveTree.getSqlMapSelector() + "." + "ddlLogExecute_comment_9", comprehensiveTree);
     }
 
     @Override
