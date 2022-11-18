@@ -25,7 +25,7 @@ public class MakeDBController extends GenericAbstractController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Resource(name = "SupportService")
+    @Resource(name = "supportService")
     SupportService supportService;
 
     @Resource(name = "egov.dataSource")
