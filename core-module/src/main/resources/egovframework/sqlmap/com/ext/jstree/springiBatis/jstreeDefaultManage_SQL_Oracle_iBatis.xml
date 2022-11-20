@@ -29,7 +29,7 @@
         /*
         * DROP SEQUENCE S_ARMS_REQADD;
         */
-        CREATE SEQUENCE S_$c_title$
+        CREATE SEQUENCE S_T_$c_title$
         START WITH 10
         MAXVALUE 999999999999999999999999999
         MINVALUE 0

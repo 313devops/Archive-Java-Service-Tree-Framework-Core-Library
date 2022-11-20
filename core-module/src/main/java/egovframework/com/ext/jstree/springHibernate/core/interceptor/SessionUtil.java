@@ -2,6 +2,9 @@ package egovframework.com.ext.jstree.springHibernate.core.interceptor;
 
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * session Util
@@ -36,5 +39,9 @@ public class SessionUtil {
      */
     public static String getSessionId() throws Exception  {
         return RequestContextHolder.getRequestAttributes().getSessionId();
+    }
+
+    public static HttpServletRequest getUrl()  throws Exception {
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 }

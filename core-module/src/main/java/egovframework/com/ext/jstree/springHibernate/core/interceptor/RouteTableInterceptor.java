@@ -5,12 +5,22 @@ import org.hibernate.EmptyInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class RouteTableInterceptor extends EmptyInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(RouteTableInterceptor.class);
 
     @Override
     public String onPrepareStatement(String sql) {
+
+        try {
+            HttpServletRequest httpServletRequest = SessionUtil.getUrl();
+            String servletPath = httpServletRequest.getServletPath();
+            logger.info("RouteTableInterceptor :: servletPath -> " + servletPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String prepedStatement = super.onPrepareStatement(sql);
         try {
