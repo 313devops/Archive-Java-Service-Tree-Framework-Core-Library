@@ -412,20 +412,6 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 		session.close();
 	}
 
-	public void forceInsert(T entity) {
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		session.setCacheMode(CacheMode.IGNORE);
-		Transaction tx = session.beginTransaction();
-
-		session.save(entity);
-
-		session.flush();
-		session.clear();
-
-		tx.commit();
-		session.close();
-	}
-
 	public T excute(HibernateCallback<T> callback) {
 		return getHibernateTemplate().execute(callback);
 	}
