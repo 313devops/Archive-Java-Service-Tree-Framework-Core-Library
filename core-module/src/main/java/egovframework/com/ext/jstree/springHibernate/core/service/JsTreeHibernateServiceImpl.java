@@ -33,6 +33,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Resource(name = "jsTreeHibernateDao")
 	private JsTreeHibernateDao jsTreeHibernateDao;
 
+	@Override
+	public void flush() throws Exception {
+		jsTreeHibernateDao.flush();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception {
@@ -130,7 +135,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				throw new RuntimeException("심각한 오류 발생 - 삽입 노드");
 			}
 		}
-		jsTreeHibernateDao.flush();
 		return jsTreeHibernateDTO;
 	}
 

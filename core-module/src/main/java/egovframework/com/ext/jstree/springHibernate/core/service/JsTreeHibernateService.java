@@ -27,4 +27,6 @@ public interface JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> int alterNodeType(T jsTreeHibernateDTO) throws Exception;
 
 	public <T extends JsTreeHibernateSearchDTO> T moveNode(T jsTreeHibernateDTO, HttpServletRequest request) throws Exception;
+
+	public void flush() throws Exception;
 }
