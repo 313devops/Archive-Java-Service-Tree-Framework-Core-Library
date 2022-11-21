@@ -130,6 +130,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				throw new RuntimeException("심각한 오류 발생 - 삽입 노드");
 			}
 		}
+		jsTreeHibernateDao.flush();
 		return jsTreeHibernateDTO;
 	}
 
