@@ -1,5 +1,6 @@
 package egovframework.com.ext.jstree.springHibernate.core.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ public interface JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> List<String> searchNode(T jsTreeHibernateDTO) throws Exception;
 
 	public <T extends JsTreeHibernateSearchDTO> T addNode(T jsTreeHibernateDTO) throws Exception;
+
+	public <T extends JsTreeHibernateSearchDTO> void bulkAddNode(Collection<T> jsTreeHibernateDTOs) throws Exception;
 
 	public <T extends JsTreeHibernateSearchDTO> int removeNode(T jsTreeHibernateDTO) throws Exception;
 

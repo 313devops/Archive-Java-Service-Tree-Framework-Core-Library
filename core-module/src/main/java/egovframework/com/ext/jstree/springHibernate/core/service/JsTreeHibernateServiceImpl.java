@@ -138,6 +138,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		return jsTreeHibernateDTO;
 	}
 
+	@Override
+	public <T extends JsTreeHibernateSearchDTO> void bulkAddNode(Collection<T> jsTreeHibernateDTOs) throws Exception {
+		jsTreeHibernateDao.bulkInsert(jsTreeHibernateDTOs);
+	}
+
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeftRightForMyselfFromJstree(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			T jsTreeHibernateDTO) throws Exception {
