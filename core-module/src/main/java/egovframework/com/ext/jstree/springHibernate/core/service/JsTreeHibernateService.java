@@ -21,6 +21,8 @@ public interface JsTreeHibernateService {
 
 	public <T extends JsTreeHibernateSearchDTO> T addNode(T jsTreeHibernateDTO) throws Exception;
 
+	public <T extends JsTreeHibernateSearchDTO> void forceAddNode(T jsTreeHibernateDTO) throws Exception;
+
 	public <T extends JsTreeHibernateSearchDTO> void bulkAddNode(Collection<T> jsTreeHibernateDTOs) throws Exception;
 
 	public <T extends JsTreeHibernateSearchDTO> int removeNode(T jsTreeHibernateDTO) throws Exception;

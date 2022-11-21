@@ -139,6 +139,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@Override
+	public <T extends JsTreeHibernateSearchDTO> void forceAddNode(T jsTreeHibernateDTO) throws Exception {
+		jsTreeHibernateDao.forceInsert(jsTreeHibernateDTO);
+	}
+
+	@Override
 	public <T extends JsTreeHibernateSearchDTO> void bulkAddNode(Collection<T> jsTreeHibernateDTOs) throws Exception {
 		jsTreeHibernateDao.bulkInsert(jsTreeHibernateDTOs);
 	}
