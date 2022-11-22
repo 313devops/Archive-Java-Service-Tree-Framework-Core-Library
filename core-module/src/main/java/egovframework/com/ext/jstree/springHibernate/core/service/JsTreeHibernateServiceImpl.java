@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -35,7 +36,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception {
 		logger.info("getNode");
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -46,7 +46,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
  		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
@@ -56,7 +55,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<T> getPaginatedChildNode(T jsTreeHibernateDTO) throws Exception {
 		
 		/** paging */
@@ -77,7 +75,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<String> searchNode(T jsTreeHibernateDTO) throws Exception {
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDTO.setOrder(Order.asc("c_id"));
@@ -92,7 +89,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> T addNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -138,7 +135,8 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		return jsTreeHibernateDTO;
 	}
 
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeftRightForMyselfFromJstree(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			T jsTreeHibernateDTO) throws Exception {
@@ -152,7 +150,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchRight(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
@@ -179,7 +177,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeft(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
@@ -224,7 +222,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> int removeNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -290,7 +288,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> int updateNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -316,7 +314,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> int alterNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -329,7 +327,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> int alterNodeType(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -356,7 +354,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> T moveNode(T jsTreeHibernateDTO, HttpServletRequest request)
 			throws Exception {
 
@@ -473,7 +471,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void enterMyselfFromJstree(long ref, long c_position, long c_id,
 			long idif, long ldif, Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) throws Exception {
 
@@ -488,7 +486,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void enterMyselfFixLeftRight(long idif, long ldif,
 			Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) {
 		logger.debug("-----------------------enterMyselfFixLeftRight-----------------------");
@@ -512,7 +510,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void fixPositionParentIdOfCopyNodes(long insertSeqResult,
 			long position, T jsTreeHibernateDTO) throws Exception {
 
@@ -566,7 +564,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> long pasteMyselfFromJstree(long ref, long idif,
 			long spaceOfTargetNode, long ldif, Collection<Long> c_idsByChildNodeFromNodeById,
 			long rightPositionFromNodeByRef, T nodeById) throws Exception {
@@ -627,7 +625,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchPositionForMyselfFromJstree(
 			Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) throws Exception {
 
@@ -787,7 +785,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void cutMyself(T nodeById, long spaceOfTargetNode,
 			Collection<Long> c_idsByChildNodeFromNodeById) throws Exception {
 
