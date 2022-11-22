@@ -380,10 +380,6 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 		return getHibernateTemplate().bulkUpdate(queryString, value);
 	}
 
-	public void flush() {
-		getHibernateTemplate().flush();
-	}
-
 	public void delete(T persistentObject) {
 		getHibernateTemplate().delete(persistentObject);
 	}
@@ -407,19 +403,6 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 			}
 			i++;
 		}
-
-		tx.commit();
-		session.close();
-	}
-
-	public void saveUsingSession(Session session,T entity) {
-		session.setCacheMode(CacheMode.IGNORE);
-		Transaction tx = session.beginTransaction();
-
-		session.save(entity);
-
-		session.flush();
-		session.clear();
 
 		tx.commit();
 		session.close();

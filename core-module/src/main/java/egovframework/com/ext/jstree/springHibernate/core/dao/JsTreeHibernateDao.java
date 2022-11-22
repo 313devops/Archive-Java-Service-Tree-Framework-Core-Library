@@ -56,7 +56,6 @@ public interface JsTreeHibernateDao<T extends JsTreeHibernateSearchDTO, ID exten
 	public void delete(T persistentObject);
 	public void deleteAll(Collection<T> entities);
 	public void bulkInsert(Collection<T> entities);
-	public void saveUsingSession(Session session, T entity);
 	public T excute(HibernateCallback<T> callback);
 	public List<T> search(Map<String, Object> parameterMap);
     public ID insert(T entity);
