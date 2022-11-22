@@ -18,12 +18,10 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 	@Resource(name = "sessionFactory")
     public void init(SessionFactory sessionFactory) {
         this.setSessionFactory(sessionFactory);
-		getCurrentSession().setCacheMode(CacheMode.IGNORE);
     }
 	protected abstract Class<T> getEntityClass();
 	
 	public Session getCurrentSession() {
-		getHibernateTemplate().getSessionFactory().getCurrentSession().setCacheMode(CacheMode.IGNORE);
         return getHibernateTemplate().getSessionFactory().getCurrentSession();
     }
 
