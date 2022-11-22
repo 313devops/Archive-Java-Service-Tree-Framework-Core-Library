@@ -35,6 +35,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception {
 		logger.info("getNode");
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
@@ -45,6 +46,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
  		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
@@ -54,6 +56,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<T> getPaginatedChildNode(T jsTreeHibernateDTO) throws Exception {
 		
 		/** paging */
@@ -74,6 +77,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> List<String> searchNode(T jsTreeHibernateDTO) throws Exception {
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDTO.setOrder(Order.asc("c_id"));
