@@ -26,7 +26,7 @@
 				
 				<prop key="hibernate.order_inserts">true</prop>
 				<prop key="hibernate.order_updates">true</prop>
-				<prop key="hibernate.jdbc.batch_size">2</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
 
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
