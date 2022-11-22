@@ -96,6 +96,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> T addNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+
 		if (jsTreeHibernateDTO.getRef() < 0) {
 			throw new RuntimeException("ref is minus");
 		} else {
