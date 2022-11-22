@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -17,6 +18,7 @@ public interface JsTreeHibernateDao<T extends JsTreeHibernateSearchDTO, ID exten
 	
 	public Class<T> getClazz();
 	public void setClazz(Class<T> clazzToSet);
+	public Session getCurrentSession();
 	public DetachedCriteria createDetachedCriteria(Class<?> clazz);
 	public DetachedCriteria createDetachedCriteria();
 	public T getUnique(Long id);
@@ -51,10 +53,10 @@ public interface JsTreeHibernateDao<T extends JsTreeHibernateSearchDTO, ID exten
 	public void update(T transientObject);
 	public void merge(T transientObject);
 	public int bulkUpdate(String queryString, Object... value);
-	public void flush();
 	public void delete(T persistentObject);
 	public void deleteAll(Collection<T> entities);
 	public void bulkInsert(Collection<T> entities);
+	public void saveUsingSession(Session session, T entity);
 	public T excute(HibernateCallback<T> callback);
 	public List<T> search(Map<String, Object> parameterMap);
     public ID insert(T entity);

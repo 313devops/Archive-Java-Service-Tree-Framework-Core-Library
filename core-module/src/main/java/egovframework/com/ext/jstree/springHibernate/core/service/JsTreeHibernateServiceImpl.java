@@ -33,11 +33,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Resource(name = "jsTreeHibernateDao")
 	private JsTreeHibernateDao jsTreeHibernateDao;
 
-	@Override
-	public void flush() throws Exception {
-		jsTreeHibernateDao.flush();
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception {

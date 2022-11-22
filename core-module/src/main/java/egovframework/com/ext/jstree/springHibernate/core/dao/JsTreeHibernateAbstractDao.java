@@ -21,7 +21,7 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
     }
 	protected abstract Class<T> getEntityClass();
 	
-	protected Session getCurrentSession() {
+	public Session getCurrentSession() {
         return getHibernateTemplate().getSessionFactory().getCurrentSession();
     }
 
@@ -407,6 +407,19 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 			}
 			i++;
 		}
+
+		tx.commit();
+		session.close();
+	}
+
+	public void saveUsingSession(Session session,T entity) {
+		session.setCacheMode(CacheMode.IGNORE);
+		Transaction tx = session.beginTransaction();
+
+		session.save(entity);
+
+		session.flush();
+		session.clear();
 
 		tx.commit();
 		session.close();
