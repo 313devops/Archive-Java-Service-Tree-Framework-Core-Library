@@ -657,6 +657,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 	}
 
+    @Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void calculatePostion(T jsTreeHibernateDTO, T nodeById,
 			List<T> childNodesFromNodeByRef, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
