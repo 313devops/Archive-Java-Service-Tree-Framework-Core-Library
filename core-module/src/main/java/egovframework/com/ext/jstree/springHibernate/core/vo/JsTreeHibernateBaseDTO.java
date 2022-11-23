@@ -43,7 +43,7 @@ public abstract class JsTreeHibernateBaseDTO implements Serializable {
 	private long status;
 	private String ajaxMessage;
 
-	private String childcount;
+	private String childcount = "unKnown";
 
 	private String searchStr;
 
@@ -244,7 +244,7 @@ public abstract class JsTreeHibernateBaseDTO implements Serializable {
 
 	@Transient
 	public String getChildcount() {
-		if((c_right - c_left)>1){
+		if((getC_right() - getC_left())>1){
 			return "InChild";
 		}
 			return "NoChild";
