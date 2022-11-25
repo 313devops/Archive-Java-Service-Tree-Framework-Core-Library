@@ -74,4 +74,37 @@ public class RouteTableInterceptor extends EmptyInterceptor {
         }
         return prepedStatement;
     }
+
+    public static String setArmsReplaceTableName(HttpServletRequest request, String tableName) throws Exception {
+        if(StringUtils.equals(tableName, "T_ARMS_REQADD")){
+            String servletPath = request.getServletPath();
+            if(StringUtils.contains(servletPath,"T_ARMS_REQADD_")){
+                if(StringUtils.contains(servletPath,"getMonitor.do")){
+                    tableName = (String) SessionUtil.getAttribute("getMonitor");
+                }
+                if(StringUtils.contains(servletPath,"getNode.do")){
+                    tableName = (String) SessionUtil.getAttribute("getNode");
+                }
+                if(StringUtils.contains(servletPath,"getChildNode.do")){
+                    tableName = (String) SessionUtil.getAttribute("getChildNode");
+                }
+                if(StringUtils.contains(servletPath,"getChildNodeWithParent.do")){
+                    tableName = (String) SessionUtil.getAttribute("getChildNodeWithParent");
+                }
+                if(StringUtils.contains(servletPath,"addNode.do")){
+                    tableName = (String) SessionUtil.getAttribute("addNode");
+                }
+                if(StringUtils.contains(servletPath,"updateNode.do")){
+                    tableName = (String) SessionUtil.getAttribute("updateNode");
+                }
+                if(StringUtils.contains(servletPath,"moveNode.do")){
+                    tableName = (String) SessionUtil.getAttribute("moveNode");
+                }
+                if(StringUtils.contains(servletPath,"getHistory.do")){
+                    tableName = (String) SessionUtil.getAttribute("getHistory");
+                }
+            }
+        }
+        return tableName;
+    }
 }

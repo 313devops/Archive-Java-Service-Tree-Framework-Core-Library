@@ -1,7 +1,11 @@
 package egovframework.com.ext.jstree.springHibernate.core.service;
 
+import egovframework.com.cmm.util.string.StringUtil;
 import egovframework.com.ext.jstree.springHibernate.core.dao.JsTreeHibernateDao;
+import egovframework.com.ext.jstree.springHibernate.core.interceptor.RouteTableInterceptor;
+import egovframework.com.ext.jstree.springHibernate.core.interceptor.SessionUtil;
 import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
+import egovframework.com.ext.jstree.support.util.StringUtils;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
@@ -20,6 +24,7 @@ import org.springframework.util.ObjectUtils;
 import org.unitils.util.ReflectionUtils;
 
 import javax.annotation.Resource;
+import javax.persistence.Table;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Field;
@@ -412,7 +417,13 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		}
 
 		logger.debug("-----------------------calculatePostion 완료-----------------------");
-		this.calculatePostion(jsTreeHibernateDTO, nodeById, childNodesFromNodeByRef, request);
+
+		//bug fix: 세션 값이 유지되므로, 구분자를 줘야 하는 문제를 테이블 명으로 잡았음.
+		Table table = jsTreeHibernateDTO.getClass().getAnnotation(Table.class);
+		String tableName = table.name();
+
+		tableName = RouteTableInterceptor.setArmsReplaceTableName(request, tableName);
+		this.calculatePostion(jsTreeHibernateDTO, nodeById, childNodesFromNodeByRef, request, tableName);
 
 		if (rightPointFromNodeByRef < 1) {
 			rightPointFromNodeByRef = 1;
@@ -656,7 +667,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	public <T extends JsTreeHibernateSearchDTO> void calculatePostion(T jsTreeHibernateDTO, T nodeById,
-			List<T> childNodesFromNodeByRef, HttpServletRequest request) throws Exception {
+			List<T> childNodesFromNodeByRef, HttpServletRequest request,  String tableName) throws Exception {
 		HttpSession session = request.getSession();
 
 		final boolean isMoveNodeInMyParent = (jsTreeHibernateDTO.getRef() == nodeById.getC_parentid());
@@ -695,7 +706,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				if (logger.isDebugEnabled()) {
 					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 				}
-				session.setAttribute("settedPosition", jsTreeHibernateDTO.getC_position());
+				session.setAttribute(tableName + "_settedPosition", jsTreeHibernateDTO.getC_position());
 			} else {
 				if (logger.isDebugEnabled()) {
 					logger.debug(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
@@ -703,7 +714,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 					logger.debug("노드의 초기 위치값=" + nodeById.getC_position());
 					logger.debug("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
 					logger.debug("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
-					logger.debug("0번 노드의 위치값=" + session.getAttribute("settedPosition"));
+					logger.debug("0번 노드의 위치값=" + session.getAttribute(tableName + "_settedPosition"));
 				}
 
 				long increasePosition = 0;
@@ -716,20 +727,20 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 						logger.debug(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 뒤일때");
 					}
 
-					increasePosition = (Integer) session.getAttribute("settedPosition") + 1;
+					increasePosition = (Integer) session.getAttribute(tableName + "_settedPosition") + 1;
 				} else {
 					if (logger.isDebugEnabled()) {
 						logger.debug(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 앞일때");
 					}
 
 					if (jsTreeHibernateDTO.isCopied()) {
-						increasePosition = (Integer) session.getAttribute("settedPosition") + 1;
+						increasePosition = (Integer) session.getAttribute(tableName + "_settedPosition") + 1;
 					} else {
-						increasePosition = (Integer) session.getAttribute("settedPosition");
+						increasePosition = (Integer) session.getAttribute(tableName + "_settedPosition");
 					}
 
 				}
-				session.setAttribute("settedPosition", increasePosition);
+				session.setAttribute(tableName + "_settedPosition", increasePosition);
 
 				jsTreeHibernateDTO.setC_position(increasePosition);
 
@@ -740,7 +751,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 						logger.debug(">>>>>>>>>>>>>>>원래 노드 위치값과 최종 계산된 노드의 위치값이 동일한 경우");
 					}
 
-					session.setAttribute("settedPosition", increasePosition - 1);
+					session.setAttribute(tableName + "_settedPosition", increasePosition - 1);
 				}
 
 				if (logger.isDebugEnabled()) {
@@ -762,7 +773,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 				}
 
-				session.setAttribute("settedPosition", jsTreeHibernateDTO.getC_position());
+				session.setAttribute(tableName + "_settedPosition", jsTreeHibernateDTO.getC_position());
 			} else {
 				if (logger.isDebugEnabled()) {
 					logger.debug(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
@@ -773,9 +784,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				}
 
 				long increasePosition = 0;
-				increasePosition = NumberUtils.toLong(session.getAttribute("settedPosition").toString()) + 1;
+				increasePosition = NumberUtils.toLong(session.getAttribute(tableName + "_settedPosition").toString()) + 1;
 				jsTreeHibernateDTO.setC_position(increasePosition);
-				session.setAttribute("settedPosition", increasePosition);
+				session.setAttribute(tableName + "_settedPosition", increasePosition);
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
@@ -785,6 +796,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void cutMyself(T nodeById, long spaceOfTargetNode,
 			Collection<Long> c_idsByChildNodeFromNodeById) throws Exception {
 
