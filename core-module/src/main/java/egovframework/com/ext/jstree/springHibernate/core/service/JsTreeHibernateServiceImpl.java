@@ -136,6 +136,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeftRightForMyselfFromJstree(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			T jsTreeHibernateDTO) throws Exception {
@@ -149,6 +150,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchRight(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
@@ -175,6 +177,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeft(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
@@ -468,6 +471,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void enterMyselfFromJstree(long ref, long c_position, long c_id,
 			long idif, long ldif, Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) throws Exception {
 
@@ -482,6 +486,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void enterMyselfFixLeftRight(long idif, long ldif,
 			Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) {
 		logger.debug("-----------------------enterMyselfFixLeftRight-----------------------");
@@ -505,6 +510,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void fixPositionParentIdOfCopyNodes(long insertSeqResult,
 			long position, T jsTreeHibernateDTO) throws Exception {
 
@@ -558,6 +564,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> long pasteMyselfFromJstree(long ref, long idif,
 			long spaceOfTargetNode, long ldif, Collection<Long> c_idsByChildNodeFromNodeById,
 			long rightPositionFromNodeByRef, T nodeById) throws Exception {
@@ -618,6 +625,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchPositionForMyselfFromJstree(
 			Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) throws Exception {
 
