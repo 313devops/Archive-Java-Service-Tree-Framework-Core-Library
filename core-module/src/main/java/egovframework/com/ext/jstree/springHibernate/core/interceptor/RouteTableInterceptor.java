@@ -69,8 +69,16 @@ public class RouteTableInterceptor extends EmptyInterceptor {
         logger.info("RouteTableInterceptor :: prepedStatement - before =>" + prepedStatement);
         logger.info("RouteTableInterceptor :: replaceTableName =>" + replaceTableName);
         if (StringUtils.isNotEmpty(replaceTableName)) {
-            prepedStatement = prepedStatement.replaceAll("T_ARMS_REQADD", replaceTableName);
+            if(StringUtils.contains(replaceTableName,"T_ARMS_REQADD")){
+                prepedStatement = prepedStatement.replaceAll("T_ARMS_REQADD", replaceTableName);
+            }else if(StringUtils.contains(replaceTableName,"T_ARMS_REQSTATUS")){
+                prepedStatement = prepedStatement.replaceAll("T_ARMS_REQSTATUS", replaceTableName);
+            }else{
+                logger.info("RouteTableInterceptor :: replaceTableName - notFound =>" + replaceTableName);
+            }
             logger.info("RouteTableInterceptor :: prepedStatement - after =>" + prepedStatement);
+        } else {
+            logger.info("RouteTableInterceptor :: replaceTableName - empty");
         }
         return prepedStatement;
     }
