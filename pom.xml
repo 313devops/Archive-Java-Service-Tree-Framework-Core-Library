@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>313devgrp</groupId>
     <artifactId>java-service-tree-framework-core-library</artifactId>
-    <version>23.01.14</version>
+    <version>23.01.15</version>
     <packaging>pom</packaging>
 
     <name>java-service-tree-framework-core-library</name>
