@@ -21,7 +21,7 @@ public class RouteTableInterceptor extends EmptyInterceptor {
             String servletPath = httpServletRequest.getServletPath();
 
             ///auth-user/api/arms/reqAdd/T_ARMS_REQADD_145/getChildNode.do
-
+            ///auth-user/api/arms/reqAdd/T_ARMS_REQADD_STATUS_145/getChildNode.do
             if(StringUtils.contains(servletPath,"T_ARMS_REQADD_")){
                 if(StringUtils.contains(servletPath,"getMonitor.do")){
                     String replaceTableName = (String) SessionUtil.getAttribute("getMonitor");
@@ -53,6 +53,39 @@ public class RouteTableInterceptor extends EmptyInterceptor {
                 }
                 if(StringUtils.contains(servletPath,"getHistory.do")){
                     String replaceTableName = (String) SessionUtil.getAttribute("getHistory");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+
+                if(StringUtils.contains(servletPath,"getStatusMonitor.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("getStatusMonitor");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"getStatusNode.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("getStatusNode");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"getStatusChildNode.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("getStatusChildNode");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"getStatusChildNodeWithParent.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("getStatusChildNodeWithParent");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"addStatusNode.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("addStatusNode");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"updateStatusNode.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("updateStatusNode");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"moveStatusNode.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("moveStatusNode");
+                    return replaceStatement(prepedStatement, replaceTableName);
+                }
+                if(StringUtils.contains(servletPath,"getStatusHistory.do")){
+                    String replaceTableName = (String) SessionUtil.getAttribute("getStatusHistory");
                     return replaceStatement(prepedStatement, replaceTableName);
                 }
             }
