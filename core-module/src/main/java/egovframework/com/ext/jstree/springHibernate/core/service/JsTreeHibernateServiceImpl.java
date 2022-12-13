@@ -141,6 +141,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeftRightForMyselfFromJstree(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			T jsTreeHibernateDTO) throws Exception {
