@@ -10,6 +10,7 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.lang.math.NumberUtils;
+import org.hibernate.CacheMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -98,10 +99,12 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> T addNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+        jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 
 		if (jsTreeHibernateDTO.getRef() < 0) {
 			throw new RuntimeException("ref is minus");
 		} else {
+
 			T nodeByRef = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getRef());
 
 			if ("default".equals(nodeByRef.getC_type())) {
