@@ -1,10 +1,9 @@
 package egovframework.com.ext.jstree.springHibernate.core.dao;
 
-import java.io.Serializable;
-
+import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
 import org.springframework.stereotype.Repository;
 
-import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
+import java.io.Serializable;
 
 @SuppressWarnings("unchecked")
 @Repository("jsTreeHibernateDao")

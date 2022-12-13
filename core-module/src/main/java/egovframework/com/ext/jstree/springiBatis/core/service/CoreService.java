@@ -1,10 +1,9 @@
 package egovframework.com.ext.jstree.springiBatis.core.service;
 
-import java.util.List;
+import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
 
 import javax.servlet.http.HttpServletRequest;
-
-import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
+import java.util.List;
 
 public interface CoreService {
 

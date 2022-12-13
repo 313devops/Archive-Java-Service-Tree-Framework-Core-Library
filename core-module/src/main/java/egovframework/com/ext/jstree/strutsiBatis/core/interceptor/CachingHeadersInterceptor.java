@@ -1,12 +1,11 @@
 package egovframework.com.ext.jstree.strutsiBatis.core.interceptor;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.StrutsStatics;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import org.apache.struts2.StrutsStatics;
+
+import javax.servlet.http.HttpServletResponse;
 
 public class CachingHeadersInterceptor extends AbstractInterceptor {
 

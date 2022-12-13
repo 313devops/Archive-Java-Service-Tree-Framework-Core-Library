@@ -1,8 +1,8 @@
 package egovframework.com.ext.jstree.springDWR.domain;
 
-import java.io.Serializable;
-
 import org.directwebremoting.annotations.DataTransferObject;
+
+import java.io.Serializable;
 
 @DataTransferObject
 public class User implements Serializable{

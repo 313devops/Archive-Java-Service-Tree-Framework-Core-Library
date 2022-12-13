@@ -1,8 +1,8 @@
 package egovframework.com.ext.jstree.springiBatis.core.dao;
 
-import java.util.List;
-
 import egovframework.com.ext.jstree.springiBatis.core.vo.ComprehensiveTree;
+
+import java.util.List;
 
 public interface CoreDao {
 

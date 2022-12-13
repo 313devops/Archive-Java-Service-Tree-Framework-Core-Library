@@ -1,9 +1,5 @@
 package egovframework.com.ext.jstree.springDWR.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
-
 import egovframework.com.ext.jstree.springDWR.domain.User;
 import egovframework.com.ext.jstree.springDWR.util.Global;
 import org.directwebremoting.Browser;
@@ -12,6 +8,10 @@ import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.directwebremoting.spring.SpringCreator;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
 
 @RemoteProxy(creator = SpringCreator.class, name = "Chat")
 @Service

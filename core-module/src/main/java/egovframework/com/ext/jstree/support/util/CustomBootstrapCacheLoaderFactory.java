@@ -1,9 +1,9 @@
 package egovframework.com.ext.jstree.support.util;
 
-import java.util.Properties;
-
 import net.sf.ehcache.bootstrap.BootstrapCacheLoader;
 import net.sf.ehcache.bootstrap.BootstrapCacheLoaderFactory;
+
+import java.util.Properties;
 
 public class CustomBootstrapCacheLoaderFactory extends BootstrapCacheLoaderFactory {
 

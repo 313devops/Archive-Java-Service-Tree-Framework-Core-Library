@@ -3,9 +3,8 @@ package egovframework.com.ext.jstree.strutsiBatis.core.dao;
 import egovframework.com.ext.jstree.strutsiBatis.core.dto.P_ComprehensiveTree;
 import egovframework.com.ext.jstree.strutsiBatis.core.vo.T_ComprehensiveTree;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 public interface I_DB_AddNode {

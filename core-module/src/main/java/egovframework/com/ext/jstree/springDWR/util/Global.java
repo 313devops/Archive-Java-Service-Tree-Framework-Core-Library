@@ -1,10 +1,10 @@
 package egovframework.com.ext.jstree.springDWR.util;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import egovframework.com.ext.jstree.springDWR.domain.User;
 import egovframework.com.ext.jstree.springDWR.service.Chat;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Global {
 
