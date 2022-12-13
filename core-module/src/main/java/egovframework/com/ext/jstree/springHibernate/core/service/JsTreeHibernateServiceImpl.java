@@ -144,7 +144,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(rollbackFor = { Exception.class }, isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public <T extends JsTreeHibernateSearchDTO> void stretchLeftRightForMyselfFromJstree(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			T jsTreeHibernateDTO) throws Exception {
@@ -232,6 +231,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> int removeNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		Criterion whereGetNode = Restrictions.eq("c_id", jsTreeHibernateDTO.getC_id());
 		T removeNode = (T) jsTreeHibernateDao.getUnique(whereGetNode);
 
@@ -298,6 +298,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> int updateNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		T alterTargetNode = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 
 		for (Field field : ReflectionUtils.getAllFields(jsTreeHibernateDTO.getClass())) {
@@ -324,6 +325,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> int alterNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		T alterTargetNode = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 		alterTargetNode.setC_title(jsTreeHibernateDTO.getC_title());
 		alterTargetNode.setFieldFromNewInstance(jsTreeHibernateDTO);
@@ -337,6 +339,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> int alterNodeType(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		T nodeById = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 
 		if (nodeById.getC_type().equals(jsTreeHibernateDTO.getC_type())) {
@@ -365,6 +368,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 
 		logger.debug("***********************MoveNode***********************");
 		logger.debug("-----------------------getNode 완료-----------------------");
