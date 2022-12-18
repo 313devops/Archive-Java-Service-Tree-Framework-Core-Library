@@ -59,7 +59,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<T> getPaginatedChildNode(T jsTreeHibernateDTO) throws Exception {
-		
+
+		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		int totalCount = jsTreeHibernateDao.getCount(jsTreeHibernateDTO);
 		/** paging */
     	PaginationInfo paginationInfo = jsTreeHibernateDTO.getPaginationInfo();
 	    paginationInfo.setCurrentPageNo(jsTreeHibernateDTO.getPageIndex());
@@ -70,9 +72,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	    jsTreeHibernateDTO.setLastIndex(paginationInfo.getLastRecordIndex());
 	    jsTreeHibernateDTO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 	    
-		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
 		List<T> list = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
+		list.stream().forEach(data -> data.getPaginationInfo().setTotalRecordCount(totalCount));
 		return list;
 	}
 
