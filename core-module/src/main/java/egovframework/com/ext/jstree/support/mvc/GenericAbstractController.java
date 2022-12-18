@@ -74,9 +74,9 @@ public abstract class GenericAbstractController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", "RuntimeException Catch");
 		if(ex.getMessage().isEmpty()){
-			map.put("message", ex.getClass().toString());
+			map.put("error", ex.getClass().toString());
 		}else{
-			map.put("message", ex.getMessage());
+			map.put("error", ex.getMessage());
 		}
 		Gson gson = new GsonBuilder().serializeNulls().create();
 		out.println(gson.toJson(map));
