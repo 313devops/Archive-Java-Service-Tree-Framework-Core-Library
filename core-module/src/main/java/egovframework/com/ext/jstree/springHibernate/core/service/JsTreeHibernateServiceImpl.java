@@ -62,17 +62,21 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		int totalCount = jsTreeHibernateDao.getCount(jsTreeHibernateDTO);
+
+		int autoPageSize = (int) Math.ceil(totalCount / jsTreeHibernateDTO.getPageUnit());
+
 		/** paging */
     	PaginationInfo paginationInfo = jsTreeHibernateDTO.getPaginationInfo();
+		paginationInfo.setTotalRecordCount(totalCount);
 	    paginationInfo.setCurrentPageNo(jsTreeHibernateDTO.getPageIndex());
 	    paginationInfo.setRecordCountPerPage(jsTreeHibernateDTO.getPageUnit());
-	    paginationInfo.setPageSize(jsTreeHibernateDTO.getPageSize());
-	    
+	    paginationInfo.setPageSize(autoPageSize);
+
 	    jsTreeHibernateDTO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 	    jsTreeHibernateDTO.setLastIndex(paginationInfo.getLastRecordIndex());
 	    jsTreeHibernateDTO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 	    
-		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
+		jsTreeHibernateDTO.setOrder(Order.desc("c_left"));
 		List<T> list = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
 		list.stream().forEach(data -> data.getPaginationInfo().setTotalRecordCount(totalCount));
 		return list;
