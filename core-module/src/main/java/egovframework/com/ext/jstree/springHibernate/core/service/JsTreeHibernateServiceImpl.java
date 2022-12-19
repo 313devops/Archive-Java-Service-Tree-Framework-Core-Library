@@ -60,6 +60,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
  		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
 		List<T> list = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
 		return list;
 	}
