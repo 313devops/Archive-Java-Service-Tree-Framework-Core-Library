@@ -226,6 +226,7 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 
 	public List<T> getListWithoutPaging(T extractSearchDTO) {
 		DetachedCriteria detachedCriteria = createDetachedCriteria();
+		detachedCriteria.setResultTransformer(CriteriaSpecification.PROJECTION);
 		for (Order order : extractSearchDTO.getOrder()) {
 			detachedCriteria.addOrder(order);
 		}
