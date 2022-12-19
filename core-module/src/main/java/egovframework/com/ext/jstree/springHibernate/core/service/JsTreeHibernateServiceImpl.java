@@ -43,7 +43,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		logger.info("JsTreeHibernateServiceImpl :: getNode");
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
-		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		jsTreeHibernateDTO.setWhere("c_id", jsTreeHibernateDTO.getC_id());
 		Object uniqueObj = jsTreeHibernateDao.getUnique(jsTreeHibernateDTO);
 		return (T) uniqueObj;
@@ -53,8 +52,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
     @Override
     public <T extends JsTreeHibernateSearchDTO> List<T> getChildNodeWithoutPaging(T jsTreeHibernateDTO) throws Exception {
         jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
-        jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
-        List<T> list = jsTreeHibernateDao.getListWithoutPaging(jsTreeHibernateDTO.getOrder().get(0));
+        List<T> list = jsTreeHibernateDao.getListWithoutPaging(jsTreeHibernateDTO);
         return list;
     }
 
@@ -62,7 +60,6 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
  		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
-		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		List<T> list = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
 		return list;
 	}

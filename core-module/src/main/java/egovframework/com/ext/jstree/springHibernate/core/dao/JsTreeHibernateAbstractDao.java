@@ -224,6 +224,17 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 		return (List<T>) getHibernateTemplate().findByCriteria(detachedCriteria);
 	}
 
+	public List<T> getListWithoutPaging(T extractSearchDTO) {
+		DetachedCriteria detachedCriteria = createDetachedCriteria();
+		for (Order order : extractSearchDTO.getOrder()) {
+			detachedCriteria.addOrder(order);
+		}
+		for (Criterion criterion : extractSearchDTO.getCriterions()) {
+			detachedCriteria.add(criterion);
+		}
+		return (List<T>) getHibernateTemplate().findByCriteria(detachedCriteria);
+	}
+
 	public List<T> getListWithoutPaging(Order order, Criterion... criterion) {
 		DetachedCriteria detachedCriteria = createDetachedCriteria();
 		for (Criterion c : criterion) {

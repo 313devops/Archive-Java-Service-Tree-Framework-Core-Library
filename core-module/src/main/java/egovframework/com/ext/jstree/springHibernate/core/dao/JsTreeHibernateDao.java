@@ -35,6 +35,7 @@ public interface JsTreeHibernateDao<T extends JsTreeHibernateSearchDTO, ID exten
 	public Map<String, Long> getGroupByList(T extractSearchDTO, String groupProperty, String sumProperty);
 	public int getGroupByCount(T extractSearchDTO, String tagert);
 	public List<T> getListWithoutPaging(Order order);
+	public List<T> getListWithoutPaging(T extractSearchDTO);
 	public List<T> getListWithoutPaging(Order order, Criterion... criterion);
 	public List<T> getListWithoutPaging(DetachedCriteria detachedCriteria);
 	public int getCount(Criterion... criterions);
