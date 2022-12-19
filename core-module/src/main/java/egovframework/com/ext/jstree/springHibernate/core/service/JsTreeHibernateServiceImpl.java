@@ -49,6 +49,15 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		return (T) uniqueObj;
 	}
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends JsTreeHibernateSearchDTO> List<T> getChildNodeWithoutPaging(T jsTreeHibernateDTO) throws Exception {
+        jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+        jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
+        List<T> list = jsTreeHibernateDao.getListWithoutPaging(jsTreeHibernateDTO.getOrder().get(0));
+        return list;
+    }
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
