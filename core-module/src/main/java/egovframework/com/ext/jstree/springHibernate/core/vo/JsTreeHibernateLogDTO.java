@@ -10,6 +10,9 @@ import java.util.Date;
 public class JsTreeHibernateLogDTO extends JsTreeHibernateSearchDTO implements Serializable {
 
     //@Getter @Setter
+    @Column(name="C_DATAID")
+    private Long C_DATAID;
+
     @Column(name="C_METHOD")
     private String c_method;
 
@@ -18,6 +21,14 @@ public class JsTreeHibernateLogDTO extends JsTreeHibernateSearchDTO implements S
 
     @Column(name="C_DATE")
     private Date c_date;
+
+    public Long getC_DATAID() {
+        return C_DATAID;
+    }
+
+    public void setC_DATAID(Long c_DATAID) {
+        C_DATAID = c_DATAID;
+    }
 
     public String getC_method() {
         return c_method;
