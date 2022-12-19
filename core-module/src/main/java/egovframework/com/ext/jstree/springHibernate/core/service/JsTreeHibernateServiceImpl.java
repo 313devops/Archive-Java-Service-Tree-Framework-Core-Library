@@ -40,8 +40,10 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> T getNode(T jsTreeHibernateDTO) throws Exception {
-		logger.info("getNode");
+
+		logger.info("JsTreeHibernateServiceImpl :: getNode");
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		jsTreeHibernateDTO.setWhere("c_id", jsTreeHibernateDTO.getC_id());
 		Object uniqueObj = jsTreeHibernateDao.getUnique(jsTreeHibernateDTO);
 		return (T) uniqueObj;
@@ -51,7 +53,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<T> getChildNode(T jsTreeHibernateDTO) throws Exception {
  		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
-		jsTreeHibernateDTO.setOrder(Order.asc("c_position"));
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		List<T> list = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
 		return list;
 	}
@@ -61,6 +63,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> List<T> getPaginatedChildNode(T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		int totalCount = jsTreeHibernateDao.getCount(jsTreeHibernateDTO);
 
 		int autoPageSize = (int) Math.ceil(totalCount / jsTreeHibernateDTO.getPageUnit());
@@ -86,6 +89,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@Override
 	public <T extends JsTreeHibernateSearchDTO> List<String> searchNode(T jsTreeHibernateDTO) throws Exception {
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
+		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 		jsTreeHibernateDTO.setOrder(Order.asc("c_id"));
 		List<T> collectionObjects = jsTreeHibernateDao.getList(jsTreeHibernateDTO);
 		List<String> returnList = new ArrayList<String>();
