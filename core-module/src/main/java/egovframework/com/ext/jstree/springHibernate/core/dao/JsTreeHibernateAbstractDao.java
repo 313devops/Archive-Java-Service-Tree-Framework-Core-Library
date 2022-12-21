@@ -20,7 +20,11 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
         this.setSessionFactory(sessionFactory);
     }
 	protected abstract Class<T> getEntityClass();
-	
+
+	public SessionFactory getTempSessionFactory() {
+		return getSessionFactory();
+	}
+
 	public Session getCurrentSession() {
         return getHibernateTemplate().getSessionFactory().getCurrentSession();
     }

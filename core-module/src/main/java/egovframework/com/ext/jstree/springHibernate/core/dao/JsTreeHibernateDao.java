@@ -3,6 +3,7 @@ package egovframework.com.ext.jstree.springHibernate.core.dao;
 import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -17,6 +18,7 @@ public interface JsTreeHibernateDao<T extends JsTreeHibernateSearchDTO, ID exten
 	
 	public Class<T> getClazz();
 	public void setClazz(Class<T> clazzToSet);
+	public SessionFactory getTempSessionFactory();
 	public Session getCurrentSession();
 	public DetachedCriteria createDetachedCriteria(Class<?> clazz);
 	public DetachedCriteria createDetachedCriteria();
