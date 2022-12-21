@@ -195,6 +195,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			try {
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
 				jsTreeHibernateDao.getCurrentSession().flush();
+				jsTreeHibernateDao.getCurrentSession().close();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -224,6 +225,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			try {
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
 				jsTreeHibernateDao.getCurrentSession().flush();
+				jsTreeHibernateDao.getCurrentSession().close();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -284,6 +286,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perLeftFixJsTreeHibernateDTO.setC_left(perLeftFixJsTreeHibernateDTO.getC_left() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perLeftFixJsTreeHibernateDTO);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 		DetachedCriteria detachedRemovedAfterRightFixCriteria = DetachedCriteria
@@ -297,6 +300,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perRightFixJsTreeHibernateDTO.setC_right(perRightFixJsTreeHibernateDTO.getC_right() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perRightFixJsTreeHibernateDTO);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 		DetachedCriteria detachedRemovedAfterPositionFixCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO
@@ -312,6 +316,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perPositionFixJsTreeHibernateDTO.setC_position(perPositionFixJsTreeHibernateDTO.getC_position() - 1);
 			jsTreeHibernateDao.update(perPositionFixJsTreeHibernateDTO);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 		return 0;
 	}
@@ -339,6 +344,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		}
 		jsTreeHibernateDao.update(alterTargetNode);
 		jsTreeHibernateDao.getCurrentSession().flush();
+		jsTreeHibernateDao.getCurrentSession().close();
 
 		return 1;
 
@@ -356,6 +362,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		alterTargetNode.setFieldFromNewInstance(jsTreeHibernateDTO);
 		jsTreeHibernateDao.update(alterTargetNode);
 		jsTreeHibernateDao.getCurrentSession().flush();
+		jsTreeHibernateDao.getCurrentSession().close();
 		return 1;
 	}
 
@@ -379,11 +386,13 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				nodeById.setC_type(jsTreeHibernateDTO.getC_type());
 				jsTreeHibernateDao.update(nodeById);
 				jsTreeHibernateDao.getCurrentSession().flush();
+				jsTreeHibernateDao.getCurrentSession().close();
 			}
 		} else if ("folder".equals(jsTreeHibernateDTO.getC_type())) {
 			nodeById.setC_type(jsTreeHibernateDTO.getC_type());
 			jsTreeHibernateDao.update(nodeById);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 
 			return 1;
 		}
@@ -541,6 +550,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		childEnterMyselfFixPosition.setC_position(c_position);
 		jsTreeHibernateDao.update(childEnterMyselfFixPosition);
 		jsTreeHibernateDao.getCurrentSession().flush();
+		jsTreeHibernateDao.getCurrentSession().close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -564,6 +574,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				perEnterMyselfFixLeftRightList.setC_level(perEnterMyselfFixLeftRightList.getC_level() - ldif);
 				jsTreeHibernateDao.update(perEnterMyselfFixLeftRightList);
 				jsTreeHibernateDao.getCurrentSession().flush();
+				jsTreeHibernateDao.getCurrentSession().close();
 			}
 		}
 	}
@@ -603,6 +614,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 				jsTreeHibernateDao.update(node);
 				jsTreeHibernateDao.getCurrentSession().flush();
+				jsTreeHibernateDao.getCurrentSession().close();
 
 				continue;
 			}
@@ -618,6 +630,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			child.setC_parentid(parentIds.get(child.getC_left()));
 			jsTreeHibernateDao.update(child);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 	}
 
@@ -710,6 +723,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perStretchPositionForMyself.setC_position(perStretchPositionForMyself.getC_position() + 1);
 			jsTreeHibernateDao.update(perStretchPositionForMyself);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 	}
@@ -839,6 +853,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perNodeById.setC_position(perNodeById.getC_position() - 1);
 			jsTreeHibernateDao.update(perNodeById);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 		logger.info("-----------------------cutMyselfLeftFix-----------------------");
@@ -851,6 +866,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perCutMyselfLeftFix.setC_left(perCutMyselfLeftFix.getC_left() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perCutMyselfLeftFix);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 		logger.info("-----------------------cutMyselfRightFix-----------------------");
@@ -867,6 +883,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perCutMyselfRightFix.setC_right(perCutMyselfRightFix.getC_right() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perCutMyselfRightFix);
 			jsTreeHibernateDao.getCurrentSession().flush();
+			jsTreeHibernateDao.getCurrentSession().close();
 		}
 
 	}
