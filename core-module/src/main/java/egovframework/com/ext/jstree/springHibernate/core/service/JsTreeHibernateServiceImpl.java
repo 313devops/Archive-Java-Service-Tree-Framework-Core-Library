@@ -194,6 +194,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perJsTreeHibernateDTO.setC_right(perJsTreeHibernateDTO.getC_right() + spaceOfTargetNode);
 			try {
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
+				jsTreeHibernateDao.getCurrentSession().flush();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -222,6 +223,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			perJsTreeHibernateDTO.setC_left(perJsTreeHibernateDTO.getC_left() + spaceOfTargetNode);
 			try {
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
+				jsTreeHibernateDao.getCurrentSession().flush();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -281,6 +283,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perLeftFixJsTreeHibernateDTO : updateRemovedAfterLeftFixtList) {
 			perLeftFixJsTreeHibernateDTO.setC_left(perLeftFixJsTreeHibernateDTO.getC_left() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perLeftFixJsTreeHibernateDTO);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 		DetachedCriteria detachedRemovedAfterRightFixCriteria = DetachedCriteria
@@ -293,6 +296,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perRightFixJsTreeHibernateDTO : updateRemovedAfterRightFixtList) {
 			perRightFixJsTreeHibernateDTO.setC_right(perRightFixJsTreeHibernateDTO.getC_right() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perRightFixJsTreeHibernateDTO);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 		DetachedCriteria detachedRemovedAfterPositionFixCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO
@@ -307,6 +311,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perPositionFixJsTreeHibernateDTO : updateRemovedAfterPositionFixtList) {
 			perPositionFixJsTreeHibernateDTO.setC_position(perPositionFixJsTreeHibernateDTO.getC_position() - 1);
 			jsTreeHibernateDao.update(perPositionFixJsTreeHibernateDTO);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 		return 0;
 	}
@@ -333,6 +338,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		}
 		jsTreeHibernateDao.update(alterTargetNode);
+		jsTreeHibernateDao.getCurrentSession().flush();
 
 		return 1;
 
@@ -349,6 +355,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		alterTargetNode.setC_title(jsTreeHibernateDTO.getC_title());
 		alterTargetNode.setFieldFromNewInstance(jsTreeHibernateDTO);
 		jsTreeHibernateDao.update(alterTargetNode);
+		jsTreeHibernateDao.getCurrentSession().flush();
 		return 1;
 	}
 
@@ -371,10 +378,13 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			} else {
 				nodeById.setC_type(jsTreeHibernateDTO.getC_type());
 				jsTreeHibernateDao.update(nodeById);
+				jsTreeHibernateDao.getCurrentSession().flush();
 			}
 		} else if ("folder".equals(jsTreeHibernateDTO.getC_type())) {
 			nodeById.setC_type(jsTreeHibernateDTO.getC_type());
 			jsTreeHibernateDao.update(nodeById);
+			jsTreeHibernateDao.getCurrentSession().flush();
+
 			return 1;
 		}
 		return 1;
@@ -530,7 +540,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		childEnterMyselfFixPosition.setC_parentid(ref);
 		childEnterMyselfFixPosition.setC_position(c_position);
 		jsTreeHibernateDao.update(childEnterMyselfFixPosition);
-
+		jsTreeHibernateDao.getCurrentSession().flush();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -553,6 +563,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				perEnterMyselfFixLeftRightList.setC_right(perEnterMyselfFixLeftRightList.getC_right() - idif);
 				perEnterMyselfFixLeftRightList.setC_level(perEnterMyselfFixLeftRightList.getC_level() - ldif);
 				jsTreeHibernateDao.update(perEnterMyselfFixLeftRightList);
+				jsTreeHibernateDao.getCurrentSession().flush();
 			}
 		}
 	}
@@ -591,6 +602,8 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				node.setC_position(position);
 
 				jsTreeHibernateDao.update(node);
+				jsTreeHibernateDao.getCurrentSession().flush();
+
 				continue;
 			}
 
@@ -604,6 +617,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			child.setFixCopyId(parentIds.get(child.getC_left()));
 			child.setC_parentid(parentIds.get(child.getC_left()));
 			jsTreeHibernateDao.update(child);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 	}
 
@@ -695,6 +709,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perStretchPositionForMyself : stretchPositionForMyselfList) {
 			perStretchPositionForMyself.setC_position(perStretchPositionForMyself.getC_position() + 1);
 			jsTreeHibernateDao.update(perStretchPositionForMyself);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 	}
@@ -823,6 +838,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perNodeById : childCutMyselfPositionFix) {
 			perNodeById.setC_position(perNodeById.getC_position() - 1);
 			jsTreeHibernateDao.update(perNodeById);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 		logger.info("-----------------------cutMyselfLeftFix-----------------------");
@@ -834,6 +850,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perCutMyselfLeftFix : childCutMyselfLeftFix) {
 			perCutMyselfLeftFix.setC_left(perCutMyselfLeftFix.getC_left() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perCutMyselfLeftFix);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 		logger.info("-----------------------cutMyselfRightFix-----------------------");
@@ -849,6 +866,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perCutMyselfRightFix : childCutMyselfRightFix) {
 			perCutMyselfRightFix.setC_right(perCutMyselfRightFix.getC_right() - spaceOfTargetNode);
 			jsTreeHibernateDao.update(perCutMyselfRightFix);
+			jsTreeHibernateDao.getCurrentSession().flush();
 		}
 
 	}
