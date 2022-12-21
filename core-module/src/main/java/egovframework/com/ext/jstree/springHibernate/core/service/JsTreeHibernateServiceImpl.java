@@ -397,11 +397,24 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		logger.debug("-----------------------getChildNodeByLeftRight 완료-----------------------");
 		DetachedCriteria getChildNodeByLeftRightCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
-		Criterion whereChildNodeByLeftRight = Restrictions.ge("c_left", nodeById.getC_left());
-		getChildNodeByLeftRightCriteria.add(whereChildNodeByLeftRight);
-		getChildNodeByLeftRightCriteria.add(Restrictions.and(Restrictions.le("c_right", nodeById.getC_right())));
+
+		Criterion criterion = Restrictions.and(
+				Restrictions.ge("c_left", nodeById.getC_left()),
+				Restrictions.le("c_right", nodeById.getC_right())
+		);
+		getChildNodeByLeftRightCriteria.add(criterion);
 		getChildNodeByLeftRightCriteria.addOrder(Order.asc("c_left"));
 		List<T> childNodesFromNodeById = jsTreeHibernateDao.getListWithoutPaging(getChildNodeByLeftRightCriteria);
+
+		logger.debug("-----------------------position 값이 over될때 방어코드-----------------------");
+		DetachedCriteria getChildNodeByPositionCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
+
+		Criterion postion_criterion = Restrictions.eq("c_parentid", jsTreeHibernateDTO.getRef());
+		getChildNodeByPositionCriteria.add(postion_criterion);
+		int refChildCount = jsTreeHibernateDao.getListWithoutPaging(getChildNodeByPositionCriteria).size();
+		if(jsTreeHibernateDTO.getC_position() > refChildCount){
+			jsTreeHibernateDTO.setC_position(Long.valueOf(refChildCount));
+		}
 
 		logger.debug("-----------------------nodeByRef 완료-----------------------");
 		T nodeByRef = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getRef());
@@ -502,6 +515,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 					jsTreeHibernateDTO);
 			enterMyselfFixLeftRight(comparePoint, targetNodeLevel, c_idsByChildNodeFromNodeById, jsTreeHibernateDTO);
 		}
+
 		return t_ComprehensiveTree;
 	}
 
