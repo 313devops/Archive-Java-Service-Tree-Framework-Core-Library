@@ -1,5 +1,6 @@
 package egovframework.com.ext.jstree.springHibernate.core.service;
 
+import egovframework.com.cmm.util.string.StringUtil;
 import egovframework.com.ext.jstree.springHibernate.core.dao.JsTreeHibernateDao;
 import egovframework.com.ext.jstree.springHibernate.core.interceptor.RouteTableInterceptor;
 import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
@@ -7,6 +8,7 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.lang.math.NumberUtils;
+import org.h2.util.StringUtils;
 import org.hibernate.CacheMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -403,6 +405,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		logger.debug("-----------------------nodeByRef 완료-----------------------");
 		T nodeByRef = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getRef());
+		if(StringUtils.equals(nodeByRef.getC_type(),"default")){
+			throw new RuntimeException("ref is not default type");
+		}
 		long rightPointFromNodeByRef = nodeByRef.getC_right();
 
 		logger.debug("-----------------------childNodesFromNodeByRef 완료-----------------------");
