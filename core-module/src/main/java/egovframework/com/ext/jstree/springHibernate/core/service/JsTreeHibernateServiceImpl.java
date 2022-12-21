@@ -176,7 +176,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	public <T extends JsTreeHibernateSearchDTO> void stretchRight(long spaceOfTargetNode,
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
-		logger.debug("-----------------------stretchRight 완료-----------------------");
+		logger.info("-----------------------stretchRight 완료-----------------------");
 		Criterion where = Restrictions.ge("c_right", rightPositionFromNodeByRef);
 		detachedCriteria.add(where);
 		if (copy == 0) {
@@ -203,7 +203,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			long rightPositionFromNodeByRef, long copy, Collection<Long> c_idsByChildNodeFromNodeById,
 			DetachedCriteria detachedCriteria) {
 
-		logger.debug("-----------------------stretchLeft 완료-----------------------");
+		logger.info("-----------------------stretchLeft 완료-----------------------");
 		Criterion where = Restrictions.ge("c_left", rightPositionFromNodeByRef);
 		detachedCriteria.add(where);
 		if (copy == 0) {
@@ -386,8 +386,8 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
 		jsTreeHibernateDao.getCurrentSession().setCacheMode(CacheMode.IGNORE);
 
-		logger.debug("***********************MoveNode***********************");
-		logger.debug("-----------------------getNode 완료-----------------------");
+		logger.info("***********************MoveNode***********************");
+		logger.info("-----------------------getNode 완료-----------------------");
 
 		T nodeById = getNode(jsTreeHibernateDTO);
 		if (nodeById == null) {
@@ -395,7 +395,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		}
 		Long nodeByIdLeft = nodeById.getC_left();
 
-		logger.debug("-----------------------getChildNodeByLeftRight 완료-----------------------");
+		logger.info("-----------------------getChildNodeByLeftRight 완료-----------------------");
 		DetachedCriteria getChildNodeByLeftRightCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
 
 		Criterion criterion = Restrictions.and(
@@ -406,7 +406,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		getChildNodeByLeftRightCriteria.addOrder(Order.asc("c_left"));
 		List<T> childNodesFromNodeById = jsTreeHibernateDao.getListWithoutPaging(getChildNodeByLeftRightCriteria);
 
-		logger.debug("-----------------------position 값이 over될때 방어코드-----------------------");
+		logger.info("-----------------------position 값이 over될때 방어코드-----------------------");
 		DetachedCriteria getChildNodeByPositionCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
 
 		Criterion postion_criterion = Restrictions.eq("c_parentid", jsTreeHibernateDTO.getRef());
@@ -416,14 +416,14 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			jsTreeHibernateDTO.setC_position(Long.valueOf(refChildCount));
 		}
 
-		logger.debug("-----------------------nodeByRef 완료-----------------------");
+		logger.info("-----------------------nodeByRef 완료-----------------------");
 		T nodeByRef = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getRef());
 		if(StringUtils.equals(nodeByRef.getC_type(),"default")){
 			throw new RuntimeException("ref is not default type");
 		}
 		long rightPointFromNodeByRef = nodeByRef.getC_right();
 
-		logger.debug("-----------------------childNodesFromNodeByRef 완료-----------------------");
+		logger.info("-----------------------childNodesFromNodeByRef 완료-----------------------");
 		DetachedCriteria getNodeByRefCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
 		Criterion whereNodeByRef = Restrictions.eq("c_parentid", nodeByRef.getC_id());
 		getNodeByRefCriteria.add(whereNodeByRef);
@@ -434,7 +434,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		long spaceOfTargetNode = 2;
 		Collection<Long> c_idsByChildNodeFromNodeById = null;
 
-		logger.debug("-----------------------c_idsByChildNodeFromNodeById 완료-----------------------");
+		logger.info("-----------------------c_idsByChildNodeFromNodeById 완료-----------------------");
 		c_idsByChildNodeFromNodeById = CollectionUtils.collect(childNodesFromNodeById, new Transformer<T, Long>() {
 			@Override
 			public Long transform(T childNodePerNodeById) {
@@ -449,11 +449,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		spaceOfTargetNode = nodeById.getC_right() - nodeById.getC_left() + 1;
 
 		if (!jsTreeHibernateDTO.isCopied()) {
-			logger.debug("-----------------------cutMyself 완료-----------------------");
+			logger.info("-----------------------cutMyself 완료-----------------------");
 			this.cutMyself(nodeById, spaceOfTargetNode, c_idsByChildNodeFromNodeById);
 		}
 
-		logger.debug("-----------------------calculatePostion 완료-----------------------");
+		logger.info("-----------------------calculatePostion 완료-----------------------");
 
 		//bug fix: 세션 값이 유지되므로, 구분자를 줘야 하는 문제를 테이블 명으로 잡았음.
 		Table table = jsTreeHibernateDTO.getClass().getAnnotation(Table.class);
@@ -467,7 +467,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		}
 
 		if (!jsTreeHibernateDTO.isCopied()) {
-			logger.debug("-----------------------stretchPositionForMyselfFromJstree 완료-----------------------");
+			logger.info("-----------------------stretchPositionForMyselfFromJstree 완료-----------------------");
 			this.stretchPositionForMyselfFromJstree(c_idsByChildNodeFromNodeById, jsTreeHibernateDTO);
 
 			int selfPosition = (nodeById.getC_parentid() == jsTreeHibernateDTO.getRef() && jsTreeHibernateDTO
@@ -485,31 +485,27 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			}
 		}
 
-		logger.debug("-----------------------stretchLeftRightForMyselfFromJstree 완료-----------------------");
+		logger.info("-----------------------stretchLeftRightForMyselfFromJstree 완료-----------------------");
 		this.stretchLeftRightForMyselfFromJstree(spaceOfTargetNode, rightPointFromNodeByRef,
 				jsTreeHibernateDTO.getCopy(), c_idsByChildNodeFromNodeById, jsTreeHibernateDTO);
 
-		if (logger.isDebugEnabled()) {
-			logger.debug(">>>>>>>>>>>>>>>>>>>>" + rightPointFromNodeByRef);
-		}
+			logger.info(">>>>>>>>>>>>>>>>>>>>" + rightPointFromNodeByRef);
 
 		long targetNodeLevel = nodeById.getC_level() - (nodeByRef.getC_level() + 1);
 		long comparePoint = nodeByIdLeft - rightPointFromNodeByRef;
 
-		if (logger.isDebugEnabled()) {
-			logger.debug(">>>>>>>>>>>>>>>>>>>>" + comparePoint);
-		}
+			logger.info(">>>>>>>>>>>>>>>>>>>>" + comparePoint);
 
 		if (jsTreeHibernateDTO.isCopied()) {
-			logger.debug("-----------------------pasteMyselfFromJstree 완료-----------------------");
+			logger.info("-----------------------pasteMyselfFromJstree 완료-----------------------");
 			long insertSeqResult = this
 					.pasteMyselfFromJstree(jsTreeHibernateDTO.getRef(), comparePoint, spaceOfTargetNode,
 							targetNodeLevel, c_idsByChildNodeFromNodeById, rightPointFromNodeByRef, nodeById);
 			t_ComprehensiveTree.setId(insertSeqResult);
-			logger.debug("-----------------------fixPositionParentIdOfCopyNodes-----------------------");
+			logger.info("-----------------------fixPositionParentIdOfCopyNodes-----------------------");
 			this.fixPositionParentIdOfCopyNodes(insertSeqResult, jsTreeHibernateDTO.getC_position(), jsTreeHibernateDTO);
 		} else {
-			logger.debug("-----------------------enterMyselfFromJstree 완료-----------------------");
+			logger.info("-----------------------enterMyselfFromJstree 완료-----------------------");
 			this.enterMyselfFromJstree(jsTreeHibernateDTO.getRef(), jsTreeHibernateDTO.getC_position(),
 					jsTreeHibernateDTO.getC_id(), comparePoint, targetNodeLevel, c_idsByChildNodeFromNodeById,
 					jsTreeHibernateDTO);
@@ -524,7 +520,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			long idif, long ldif, Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) throws Exception {
 
 		jsTreeHibernateDao.setClazz(jsTreeHibernateDTO.getClass());
-		logger.debug("-----------------------enterMyselfFixPosition-----------------------");
+		logger.info("-----------------------enterMyselfFixPosition-----------------------");
 
 		T childEnterMyselfFixPosition = (T) jsTreeHibernateDao.getUnique(jsTreeHibernateDTO.getC_id());
 		childEnterMyselfFixPosition.setC_parentid(ref);
@@ -536,7 +532,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 	@SuppressWarnings("unchecked")
 	public <T extends JsTreeHibernateSearchDTO> void enterMyselfFixLeftRight(long idif, long ldif,
 			Collection<Long> c_idsByChildNodeFromNodeById, T jsTreeHibernateDTO) {
-		logger.debug("-----------------------enterMyselfFixLeftRight-----------------------");
+		logger.info("-----------------------enterMyselfFixLeftRight-----------------------");
 		DetachedCriteria detachedEnterMyselfFixLeftRightCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO
 				.getClass());
 		if (c_idsByChildNodeFromNodeById != null && c_idsByChildNodeFromNodeById.size() > 0) {
@@ -547,7 +543,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			List<T> enterMyselfFixLeftRightList = jsTreeHibernateDao
 					.getListWithoutPaging(detachedEnterMyselfFixLeftRightCriteria);
 			for (T perEnterMyselfFixLeftRightList : enterMyselfFixLeftRightList) {
-				logger.debug(perEnterMyselfFixLeftRightList.toString());
+				logger.info(perEnterMyselfFixLeftRightList.toString());
 				perEnterMyselfFixLeftRightList.setC_left(perEnterMyselfFixLeftRightList.getC_left() - idif);
 				perEnterMyselfFixLeftRightList.setC_right(perEnterMyselfFixLeftRightList.getC_right() - idif);
 				perEnterMyselfFixLeftRightList.setC_level(perEnterMyselfFixLeftRightList.getC_level() - ldif);
@@ -564,7 +560,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 		T node = (T) jsTreeHibernateDao.getUnique(insertSeqResult);
 
-		logger.debug("-----------------------fixPositionParentIdOfCopyNodes 완료-----------------------");
+		logger.info("-----------------------fixPositionParentIdOfCopyNodes 완료-----------------------");
 		DetachedCriteria getChildNodeByLeftRightCriteria = DetachedCriteria.forClass(jsTreeHibernateDTO.getClass());
 		Criterion whereChildNodeByLeftRight = Restrictions.ge("c_left", node.getC_left());
 		getChildNodeByLeftRightCriteria.add(whereChildNodeByLeftRight);
@@ -581,12 +577,10 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			}
 
 			if (child.getC_id() == insertSeqResult) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(">>>>>>>>>>>>>>>>> 기준노드가 잡혔음.");
-					logger.debug("C_TITLE    = " + child.getC_title());
-					logger.debug("C_ID       = " + insertSeqResult);
-					logger.debug("C_POSITION = " + position);
-				}
+					logger.info(">>>>>>>>>>>>>>>>> 기준노드가 잡혔음.");
+					logger.info("C_TITLE    = " + child.getC_title());
+					logger.info("C_ID       = " + insertSeqResult);
+					logger.info("C_POSITION = " + position);
 
 				node.setC_position(position);
 
@@ -594,14 +588,12 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				continue;
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug(">>>>>>>>>>>>>>>>> 기준노드 아래 있는 녀석임");
-				logger.debug("C_TITLE    = " + child.getC_title());
-				logger.debug("C_ID       = " + child.getC_id());
-				logger.debug("C_POSITION = " + child.getC_position());
-				logger.debug("C_PARENTID = " + child.getC_parentid());
-				logger.debug("부모아이디값 = " + parentIds.get(child.getC_left()));
-			}
+				logger.info(">>>>>>>>>>>>>>>>> 기준노드 아래 있는 녀석임");
+				logger.info("C_TITLE    = " + child.getC_title());
+				logger.info("C_ID       = " + child.getC_id());
+				logger.info("C_POSITION = " + child.getC_position());
+				logger.info("C_PARENTID = " + child.getC_parentid());
+				logger.info("부모아이디값 = " + parentIds.get(child.getC_left()));
 
 			child.setFixCopyId(parentIds.get(child.getC_left()));
 			child.setC_parentid(parentIds.get(child.getC_left()));
@@ -641,7 +633,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			List<T> pasteMyselfFromJstreeList = jsTreeHibernateDao
 					.getListWithoutPaging(detachedPasteMyselfFromJstreeCriteria);
 			for (T perPasteMyselfFromJstree : pasteMyselfFromJstreeList) {
-				logger.debug("------pasteMyselfFromJstree------LOOP---" + perPasteMyselfFromJstree.getC_id());
+				logger.info("------pasteMyselfFromJstree------LOOP---" + perPasteMyselfFromJstree.getC_id());
 				T addTarget = newInstance(perPasteMyselfFromJstree);
 				
 				addTarget.setC_parentid(onlyPasteMyselfFromJstree.getRef());
@@ -653,7 +645,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				addTarget.setC_type(perPasteMyselfFromJstree.getC_type());
 				
 				addTarget.setFieldFromNewInstance(perPasteMyselfFromJstree);
-				logger.debug("여기에 추가적으로 확장한 필드에 대한 함수가 들어가야 한다 패턴을 쓰자");
+				logger.info("여기에 추가적으로 확장한 필드에 대한 함수가 들어가야 한다 패턴을 쓰자");
 				
 				long insertSeqResult = (long) jsTreeHibernateDao.insert(addTarget);
 				perPasteMyselfFromJstree.setId(insertSeqResult);
@@ -708,27 +700,21 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		final boolean isBeyondTheCurrentToMoveNodes = (jsTreeHibernateDTO.getC_position() > nodeById.getC_position());
 
 		if (isMoveNodeInMyParent) {
-			if (logger.isDebugEnabled()) {
-				logger.debug(">>>>>>>>>>>>>>>이동할 노드가 내 부모안에서 움직일때");
-			}
+				logger.info(">>>>>>>>>>>>>>>이동할 노드가 내 부모안에서 움직일때");
 
 			if (isMultiCounterZero) {
 				if (isBeyondTheCurrentToMoveNodes) {
-					if (logger.isDebugEnabled()) {
-						logger.debug(">>>>>>>>>>>>>>>이동 할 노드가 현재보다 뒤일때");
-						logger.debug("노드값=" + nodeById.getC_title());
-						logger.debug("노드의 초기 위치값=" + nodeById.getC_position());
-						logger.debug("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
-						logger.debug("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
-					}
+						logger.info(">>>>>>>>>>>>>>>이동 할 노드가 현재보다 뒤일때");
+						logger.info("노드값=" + nodeById.getC_title());
+						logger.info("노드의 초기 위치값=" + nodeById.getC_position());
+						logger.info("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
+						logger.info("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
 
 					final boolean isFolderToMoveNodes = (jsTreeHibernateDTO.getC_position() > childNodesFromNodeByRef
 							.size());
 
 					if (isFolderToMoveNodes) {
-						if (logger.isDebugEnabled()) {
-							logger.debug("노드 이동시 폴더를 대상으로 했을때 생기는 버그 발생 =" + jsTreeHibernateDTO.getC_position());
-						}
+							logger.info("노드 이동시 폴더를 대상으로 했을때 생기는 버그 발생 =" + jsTreeHibernateDTO.getC_position());
 						long childNodesFromNodeByRefCnt = childNodesFromNodeByRef.size();
 						jsTreeHibernateDTO.setC_position(childNodesFromNodeByRefCnt);
 					} else {
@@ -736,19 +722,15 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 					}
 				}
 
-				if (logger.isDebugEnabled()) {
-					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
-				}
+					logger.info("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 				session.setAttribute(tableName + "_settedPosition", jsTreeHibernateDTO.getC_position());
 			} else {
-				if (logger.isDebugEnabled()) {
-					logger.debug(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
-					logger.debug("노드값=" + nodeById.getC_title());
-					logger.debug("노드의 초기 위치값=" + nodeById.getC_position());
-					logger.debug("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
-					logger.debug("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
-					logger.debug("0번 노드의 위치값=" + session.getAttribute(tableName + "_settedPosition"));
-				}
+					logger.info(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
+					logger.info("노드값=" + nodeById.getC_title());
+					logger.info("노드의 초기 위치값=" + nodeById.getC_position());
+					logger.info("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
+					logger.info("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
+					logger.info("0번 노드의 위치값=" + session.getAttribute(tableName + "_settedPosition"));
 
 				long increasePosition = 0;
 
@@ -756,15 +738,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 						.getAttribute("settedPosition") < nodeById.getC_position());
 
 				if (isMultiNodeOfPositionsAtZeroThanBehind) {
-					if (logger.isDebugEnabled()) {
-						logger.debug(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 뒤일때");
-					}
+						logger.info(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 뒤일때");
 
 					increasePosition = (Integer) session.getAttribute(tableName + "_settedPosition") + 1;
 				} else {
-					if (logger.isDebugEnabled()) {
-						logger.debug(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 앞일때");
-					}
+						logger.info(">>>>>>>>>>>>>>>멀티 노드의 위치가 0번 노드보다 앞일때");
 
 					if (jsTreeHibernateDTO.isCopied()) {
 						increasePosition = (Integer) session.getAttribute(tableName + "_settedPosition") + 1;
@@ -780,50 +758,38 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				final boolean isSamePosition = (nodeById.getC_position() == jsTreeHibernateDTO.getC_position());
 
 				if (isSamePosition) {
-					if (logger.isDebugEnabled()) {
-						logger.debug(">>>>>>>>>>>>>>>원래 노드 위치값과 최종 계산된 노드의 위치값이 동일한 경우");
-					}
+						logger.info(">>>>>>>>>>>>>>>원래 노드 위치값과 최종 계산된 노드의 위치값이 동일한 경우");
 
 					session.setAttribute(tableName + "_settedPosition", increasePosition - 1);
 				}
 
-				if (logger.isDebugEnabled()) {
-					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
-				}
+					logger.info("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 			}
 		} else {
-			if (logger.isDebugEnabled()) {
-				logger.debug(">>>>>>>>>>>>>>>이동할 노드가 내 부모밖으로 움직일때");
-			}
+				logger.info(">>>>>>>>>>>>>>>이동할 노드가 내 부모밖으로 움직일때");
 
 			if (isMultiCounterZero) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(">>>>>>>>>>>>>>>멀티 카운터가 0 일때");
-					logger.debug("노드값=" + nodeById.getC_title());
-					logger.debug("노드의 초기 위치값=" + nodeById.getC_position());
-					logger.debug("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
-					logger.debug("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
-					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
-				}
+					logger.info(">>>>>>>>>>>>>>>멀티 카운터가 0 일때");
+					logger.info("노드값=" + nodeById.getC_title());
+					logger.info("노드의 초기 위치값=" + nodeById.getC_position());
+					logger.info("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
+					logger.info("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
+					logger.info("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 
 				session.setAttribute(tableName + "_settedPosition", jsTreeHibernateDTO.getC_position());
 			} else {
-				if (logger.isDebugEnabled()) {
-					logger.debug(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
-					logger.debug("노드값=" + nodeById.getC_title());
-					logger.debug("노드의 초기 위치값=" + nodeById.getC_position());
-					logger.debug("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
-					logger.debug("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
-				}
+					logger.info(">>>>>>>>>>>>>>>멀티 카운터가 0 이 아닐때");
+					logger.info("노드값=" + nodeById.getC_title());
+					logger.info("노드의 초기 위치값=" + nodeById.getC_position());
+					logger.info("노드의 요청받은 위치값=" + jsTreeHibernateDTO.getC_position());
+					logger.info("노드의 요청받은 멀티카운터=" + jsTreeHibernateDTO.getMultiCounter());
 
 				long increasePosition = 0;
 				increasePosition = NumberUtils.toLong(session.getAttribute(tableName + "_settedPosition").toString()) + 1;
 				jsTreeHibernateDTO.setC_position(increasePosition);
 				session.setAttribute(tableName + "_settedPosition", increasePosition);
 
-				if (logger.isDebugEnabled()) {
-					logger.debug("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
-				}
+					logger.info("노드의 최종 위치값=" + jsTreeHibernateDTO.getC_position());
 			}
 		}
 	}
@@ -836,8 +802,8 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		nodeById.setSpaceOfTargetNode(spaceOfTargetNode);
 		nodeById.setC_idsByChildNodeFromNodeById(c_idsByChildNodeFromNodeById);
 
-		logger.debug("***********************CutMyself***********************");
-		logger.debug("-----------------------cutMyselfPositionFix-----------------------");
+		logger.info("***********************CutMyself***********************");
+		logger.info("-----------------------cutMyselfPositionFix-----------------------");
 		DetachedCriteria cutMyselfPositionFixCriteria = DetachedCriteria.forClass(nodeById.getClass());
 		Criterion whereCutMyselfPositionFix = Restrictions.eq("c_parentid", nodeById.getC_parentid());
 		cutMyselfPositionFixCriteria.add(whereCutMyselfPositionFix);
@@ -849,7 +815,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			jsTreeHibernateDao.update(perNodeById);
 		}
 
-		logger.debug("-----------------------cutMyselfLeftFix-----------------------");
+		logger.info("-----------------------cutMyselfLeftFix-----------------------");
 		DetachedCriteria cutMyselfLeftFixCriteria = DetachedCriteria.forClass(nodeById.getClass());
 		Criterion whereCutMyselfLeftFix = Restrictions.gt("c_left", nodeById.getC_right());
 		cutMyselfLeftFixCriteria.add(whereCutMyselfLeftFix);
@@ -860,7 +826,7 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 			jsTreeHibernateDao.update(perCutMyselfLeftFix);
 		}
 
-		logger.debug("-----------------------cutMyselfRightFix-----------------------");
+		logger.info("-----------------------cutMyselfRightFix-----------------------");
 		DetachedCriteria cutMyselfRightFixCriteria = DetachedCriteria.forClass(nodeById.getClass());
 		Criterion whereCutMyselfRightFix = Restrictions.gt("c_right", nodeById.getC_left());
 		cutMyselfRightFixCriteria.add(whereCutMyselfRightFix);
