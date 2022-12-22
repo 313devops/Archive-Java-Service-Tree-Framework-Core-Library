@@ -1,5 +1,6 @@
 package egovframework.com.ext.jstree.springHibernate.core.dao;
 
+import egovframework.com.ext.jstree.springHibernate.core.interceptor.RouteTableInterceptor;
 import egovframework.com.ext.jstree.springHibernate.core.vo.JsTreeHibernateSearchDTO;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -384,7 +385,19 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 	}
 
 	public void update(T transientObject) {
-		getHibernateTemplate().update(transientObject);
+
+		RouteTableInterceptor interceptor = new RouteTableInterceptor();
+		Session session = getHibernateTemplate().getSessionFactory().withOptions()
+				.interceptor(interceptor).openSession();
+		session.setCacheMode(CacheMode.IGNORE);
+		Transaction tx = session.beginTransaction();
+
+		session.update(transientObject);
+
+		tx.commit();
+		session.close();
+		
+		//getHibernateTemplate().update(transientObject);
 	}
 
 	public void merge(T transientObject) {
