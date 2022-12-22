@@ -10,6 +10,7 @@ import org.apache.commons.collections15.Transformer;
 import org.apache.commons.lang.math.NumberUtils;
 import org.h2.util.StringUtils;
 import org.hibernate.CacheMode;
+import org.hibernate.SessionBuilder;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -191,6 +192,10 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perJsTreeHibernateDTO : updateTargetList) {
 			perJsTreeHibernateDTO.setC_right(perJsTreeHibernateDTO.getC_right() + spaceOfTargetNode);
 			try {
+				RouteTableInterceptor interceptor = new RouteTableInterceptor();
+				jsTreeHibernateDao.getTempSessionFactory().withOptions()
+						.interceptor(interceptor).openSession();
+
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -218,6 +223,10 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		for (T perJsTreeHibernateDTO : updateTargetList) {
 			perJsTreeHibernateDTO.setC_left(perJsTreeHibernateDTO.getC_left() + spaceOfTargetNode);
 			try {
+				RouteTableInterceptor interceptor = new RouteTableInterceptor();
+				jsTreeHibernateDao.getTempSessionFactory().withOptions()
+						.interceptor(interceptor).openSession();
+
 				jsTreeHibernateDao.update(perJsTreeHibernateDTO);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -551,6 +560,11 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				perEnterMyselfFixLeftRightList.setC_left(perEnterMyselfFixLeftRightList.getC_left() - idif);
 				perEnterMyselfFixLeftRightList.setC_right(perEnterMyselfFixLeftRightList.getC_right() - idif);
 				perEnterMyselfFixLeftRightList.setC_level(perEnterMyselfFixLeftRightList.getC_level() - ldif);
+
+				RouteTableInterceptor interceptor = new RouteTableInterceptor();
+				jsTreeHibernateDao.getTempSessionFactory().withOptions()
+						.interceptor(interceptor).openSession();
+
 				jsTreeHibernateDao.update(perEnterMyselfFixLeftRightList);
 			}
 		}
@@ -590,6 +604,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 				node.setC_position(position);
 
+				RouteTableInterceptor interceptor = new RouteTableInterceptor();
+				jsTreeHibernateDao.getTempSessionFactory().withOptions()
+						.interceptor(interceptor).openSession();
 				jsTreeHibernateDao.update(node);
 				continue;
 			}
@@ -605,6 +622,10 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 
 			child.setFixCopyId(parentIds.get(child.getC_left()));
 			child.setC_parentid(parentIds.get(child.getC_left()));
+
+			RouteTableInterceptor interceptor = new RouteTableInterceptor();
+			jsTreeHibernateDao.getTempSessionFactory().withOptions()
+					.interceptor(interceptor).openSession();
 			jsTreeHibernateDao.update(child);
 		}
 	}
@@ -694,6 +715,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 				.getListWithoutPaging(detachedStretchPositionForMyselfCriteria);
 		for (T perStretchPositionForMyself : stretchPositionForMyselfList) {
 			perStretchPositionForMyself.setC_position(perStretchPositionForMyself.getC_position() + 1);
+			RouteTableInterceptor interceptor = new RouteTableInterceptor();
+			jsTreeHibernateDao.getTempSessionFactory().withOptions()
+					.interceptor(interceptor).openSession();
 			jsTreeHibernateDao.update(perStretchPositionForMyself);
 		}
 
@@ -846,6 +870,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		List<T> childCutMyselfPositionFix = jsTreeHibernateDao.getListWithoutPaging(cutMyselfPositionFixCriteria);
 		for (T perNodeById : childCutMyselfPositionFix) {
 			perNodeById.setC_position(perNodeById.getC_position() - 1);
+			RouteTableInterceptor interceptor = new RouteTableInterceptor();
+			jsTreeHibernateDao.getTempSessionFactory().withOptions()
+					.interceptor(interceptor).openSession();
 			jsTreeHibernateDao.update(perNodeById);
 		}
 
@@ -857,6 +884,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		List<T> childCutMyselfLeftFix = jsTreeHibernateDao.getListWithoutPaging(cutMyselfLeftFixCriteria);
 		for (T perCutMyselfLeftFix : childCutMyselfLeftFix) {
 			perCutMyselfLeftFix.setC_left(perCutMyselfLeftFix.getC_left() - spaceOfTargetNode);
+			RouteTableInterceptor interceptor = new RouteTableInterceptor();
+			jsTreeHibernateDao.getTempSessionFactory().withOptions()
+					.interceptor(interceptor).openSession();
 			jsTreeHibernateDao.update(perCutMyselfLeftFix);
 		}
 
@@ -872,6 +902,9 @@ public class JsTreeHibernateServiceImpl implements JsTreeHibernateService {
 		List<T> childCutMyselfRightFix = jsTreeHibernateDao.getListWithoutPaging(cutMyselfRightFixCriteria);
 		for (T perCutMyselfRightFix : childCutMyselfRightFix) {
 			perCutMyselfRightFix.setC_right(perCutMyselfRightFix.getC_right() - spaceOfTargetNode);
+			RouteTableInterceptor interceptor = new RouteTableInterceptor();
+			jsTreeHibernateDao.getTempSessionFactory().withOptions()
+					.interceptor(interceptor).openSession();
 			jsTreeHibernateDao.update(perCutMyselfRightFix);
 		}
 
