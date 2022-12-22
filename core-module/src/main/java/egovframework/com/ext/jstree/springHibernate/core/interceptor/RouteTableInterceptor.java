@@ -2,6 +2,7 @@ package egovframework.com.ext.jstree.springHibernate.core.interceptor;
 
 import egovframework.com.ext.jstree.support.util.StringUtils;
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,12 @@ import java.io.Serializable;
 public class RouteTableInterceptor extends EmptyInterceptor{
 
     private static final Logger logger = LoggerFactory.getLogger(RouteTableInterceptor.class);
+
+    Session session;
+
+    public void setSession(Session session) {
+        this.session=session;
+    }
 
     @Override
     public String onPrepareStatement(String sql) {
