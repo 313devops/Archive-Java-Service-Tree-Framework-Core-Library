@@ -385,19 +385,7 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 	}
 
 	public void update(T transientObject) {
-
-		RouteTableInterceptor interceptor = new RouteTableInterceptor();
-		Session session = getHibernateTemplate().getSessionFactory().withOptions()
-				.interceptor(interceptor).openSession();
-		session.setCacheMode(CacheMode.IGNORE);
-		Transaction tx = session.beginTransaction();
-
-		session.update(transientObject);
-
-		tx.commit();
-		session.close();
-		
-		//getHibernateTemplate().update(transientObject);
+		getHibernateTemplate().update(transientObject);
 	}
 
 	public void merge(T transientObject) {
