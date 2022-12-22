@@ -385,11 +385,7 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 	}
 
 	public void update(T transientObject) {
-		getCurrentSession().setCacheMode(CacheMode.IGNORE);
-		getCurrentSession().setFlushMode(FlushMode.COMMIT);
-		getCurrentSession().beginTransaction();
 		getHibernateTemplate().update(transientObject);
-		getCurrentSession().getTransaction().commit();
 		getCurrentSession().flush();
 		getCurrentSession().clear();
 	}
