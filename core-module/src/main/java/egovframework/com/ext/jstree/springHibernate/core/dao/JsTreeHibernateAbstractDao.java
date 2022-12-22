@@ -400,6 +400,8 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 
 	public void delete(T persistentObject) {
 		getHibernateTemplate().delete(persistentObject);
+		getHibernateTemplate().flush();
+		getHibernateTemplate().clear();
 	}
 
 	public void deleteAll(Collection<T> entities) {
