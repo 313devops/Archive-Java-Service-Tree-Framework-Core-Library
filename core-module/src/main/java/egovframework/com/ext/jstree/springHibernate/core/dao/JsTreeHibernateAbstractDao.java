@@ -386,8 +386,8 @@ public abstract class JsTreeHibernateAbstractDao<T extends JsTreeHibernateSearch
 
 	public void update(T transientObject) {
 		getHibernateTemplate().update(transientObject);
-		getCurrentSession().flush();
-		getCurrentSession().clear();
+		getHibernateTemplate().flush();
+		getHibernateTemplate().clear();
 	}
 
 	public void merge(T transientObject) {
