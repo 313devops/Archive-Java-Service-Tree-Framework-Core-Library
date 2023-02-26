@@ -131,7 +131,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/removeNode.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeNode.do", method = RequestMethod.DELETE)
     public ModelAndView removeNode(@Validated(value = RemoveNode.class) V jsTreeHibernateSearchDTO,
                                    BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors())
@@ -156,7 +156,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/updateNode.do")
+    @RequestMapping(value = "/updateNode.do", method = RequestMethod.PUT)
     public ModelAndView updateNode(@Validated(value = UpdateNode.class) V jsTreeHibernateSearchDTO,
                                   BindingResult bindingResult, HttpServletRequest request, ModelMap model) throws Exception {
 
@@ -170,7 +170,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/alterNode.do")
+    @RequestMapping(value = "/alterNode.do", method = RequestMethod.PUT)
     public ModelAndView alterNode(@Validated(value = AlterNode.class) V jsTreeHibernateSearchDTO,
                                   BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
@@ -188,7 +188,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/alterNodeType.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/alterNodeType.do", method = RequestMethod.PUT)
     public ModelAndView alterNodeType(@Validated(value = AlterNodeType.class) V jsTreeHibernateSearchDTO,
                                       BindingResult bindingResult, ModelMap model) throws Exception {
         if (bindingResult.hasErrors()) {
@@ -232,7 +232,7 @@ public abstract class SHVAbstractController<T extends JsTreeHibernateService, V 
     public ModelAndView getMonitor( V jsTreeHibernateSearchDTO, ModelMap model, HttpServletRequest request)
             throws Exception {
 
-        jsTreeHibernateSearchDTO.setOrder(Order.asc("c_id"));
+        jsTreeHibernateSearchDTO.setOrder(Order.desc("c_id"));
         List<JsTreeHibernateSearchDTO> list = jsTreeHibernateService.getChildNode(jsTreeHibernateSearchDTO);
 
         ModelAndView modelAndView = new ModelAndView("jsonView");
